@@ -1,4 +1,4 @@
-package Fixed;
+package fixed;
 
 import android.support.v7.app.AppCompatActivity;
 

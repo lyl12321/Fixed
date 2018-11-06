@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="Fixed.MainActivity">
+    tools:context="fixed.MainActivity">
 
     <FrameLayout
         android:id="@+id/frameLyout_main"
@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
-        app:menu="@menu/navigation" />
+        app:menu="@menu/navigation"
+        />
 
 </LinearLayout>
