@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="fixed.MainActivity">
+    tools:context="fixed.MainActivity"
+    android:background="@color/ic_launcher_background">
 
     <FrameLayout
         android:id="@+id/frameLyout_main"

@@ -11,12 +11,15 @@ import android.view.animation.Animation;
 
 import liyulong.com.fixed.R;
 
-public class HomeActivity extends Fragment {
+public class AppointmentActivity extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_home,container,false);
+        View view = inflater.inflate(R.layout.activity_appointment,container,false);
+
+
+
 
         return view;
     }
@@ -24,7 +27,7 @@ public class HomeActivity extends Fragment {
 
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        return MoveAnimation.create(MoveAnimation.UP,enter,1000);
+        return MoveAnimation.create(MoveAnimation.LEFT,enter,1000);
 
     }
 }

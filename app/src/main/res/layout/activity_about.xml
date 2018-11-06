@@ -7,8 +7,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="开发中。。。。。。"/>
-
+        android:text="关于页面也在开发中。。。。"/>
 
 
 

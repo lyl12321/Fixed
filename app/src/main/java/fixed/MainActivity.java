@@ -86,8 +86,11 @@ public class MainActivity extends BaseActivity {
                     return true;
                 case R.id.navigation_appointment:
 
+                    replaceFragment(new AppointmentActivity());
+
                     return true;
                 case R.id.navigation_about:
+                    replaceFragment(new AboutActivity());
 
                     return true;
             }
@@ -149,6 +152,7 @@ public class MainActivity extends BaseActivity {
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        transaction.addToBackStack(null);
         transaction.replace(R.id.frameLyout_main,fragment);
         transaction.commit();
     }
