@@ -26,10 +26,10 @@ public class MainActivity extends BaseActivity {
 
 
                     return true;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_appointment:
 
                     return true;
-                case R.id.navigation_notifications:
+                case R.id.navigation_about:
 
                     return true;
             }
