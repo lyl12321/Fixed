@@ -15,6 +15,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import liyulong.com.fixed.R;
@@ -26,6 +28,41 @@ public class MainActivity extends BaseActivity {
     Fragment homeActivity = new HomeActivity();
     Fragment appointmentActivity = new AppointmentActivity();
     Fragment aboutActivity = new AboutActivity();
+
+
+
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        replaceFragment(homeActivity);
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+
+
+
+
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            showAlert(this, "因为支付需要一些权限，请点击确定按钮开始授权", new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    requestPermission();
+                }
+            });
+
+        }
+
+
+    }
+
+
 
     /*
     申请所需权限
@@ -102,31 +139,6 @@ public class MainActivity extends BaseActivity {
             return false;
         }
     };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        replaceFragment(homeActivity);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
-                != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-                showAlert(this, "因为支付需要一些权限，请点击确定按钮开始授权", new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        requestPermission();
-                    }
-                });
-
-            }
-
-
-    }
-
-
 
 
 

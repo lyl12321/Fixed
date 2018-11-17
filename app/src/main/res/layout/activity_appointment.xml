@@ -66,7 +66,7 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="0dp"
             android:layout_weight="9"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:paddingLeft="12dp">
             <EditText
                 android:layout_width="match_parent"
@@ -100,18 +100,57 @@
             android:src="@drawable/ic_location_on_black_24dp"
             android:layout_weight="1"
             />
-        <android.support.design.button.MaterialButton
+        <!--<android.support.design.button.MaterialButton-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="9"-->
+            <!--android:backgroundTint="@color/appBackColor"-->
+            <!--android:outlineProvider="none"-->
+            <!--android:textColor="@color/blue"-->
+            <!--android:text="点我选择地址"-->
+            <!--android:textSize="18dp"-->
+            <!--android:id="@+id/button_Address"-->
+
+            <!--/>-->
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="9"
-            android:backgroundTint="@color/appBackColor"
-            android:outlineProvider="none"
-            android:textColor="@color/blue"
-            android:text="点我进行选择"
-            android:textSize="18dp"
-            android:id="@+id/button_Address"
+            android:paddingLeft="12dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="选择位置"
+                android:textSize="14dp"
+                android:gravity="center"/>
 
-            />
+
+            <org.angmarch.views.NiceSpinner
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="楼号"
+                android:id="@+id/niceSpinner_BuildNumber"
+                />
+            <org.angmarch.views.NiceSpinner
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="楼层"
+                android:id="@+id/niceSpinner_FloorNumber"
+                />
+            <org.angmarch.views.NiceSpinner
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="宿舍号"
+                android:id="@+id/niceSpinner_SNumber"
+                />
+
+
+
+
+
+
+        </LinearLayout>
+
 
 
 
@@ -122,6 +161,37 @@
 
 
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        >
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_access_time_black_24dp"
+            android:layout_weight="1"
+            />
+
+        <android.support.design.button.MaterialButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="9"
+            android:backgroundTint="@color/appBackColor"
+            android:outlineProvider="none"
+            android:textColor="@color/blue"
+            android:text="点我选择时间"
+            android:textSize="18dp"
+            android:id="@+id/button_Time"
+
+            />
+
+
+
+    </LinearLayout>
 
 
 
