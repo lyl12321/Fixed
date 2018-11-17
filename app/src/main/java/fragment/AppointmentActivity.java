@@ -7,14 +7,25 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
 
 import org.angmarch.views.NiceSpinner;
 
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 
+import context.MyApplication;
+import fixed.MainActivity;
 import liyulong.com.fixed.R;
 
 public class AppointmentActivity extends Fragment {
@@ -24,6 +35,8 @@ public class AppointmentActivity extends Fragment {
     private NiceSpinner buildNumber;
     private NiceSpinner floorNumber;
     private NiceSpinner sNumber;
+    private Button chooseTime;
+    private String sTime = new String();
 
 
     @Nullable
@@ -36,7 +49,7 @@ public class AppointmentActivity extends Fragment {
         buildNumber = view.findViewById(R.id.niceSpinner_BuildNumber);
         floorNumber = view.findViewById(R.id.niceSpinner_FloorNumber);
         sNumber = view.findViewById(R.id.niceSpinner_SNumber);
-
+        chooseTime = view.findViewById(R.id.button_Time);
 
 
 
@@ -58,7 +71,21 @@ public class AppointmentActivity extends Fragment {
         initSpinner();
 
 
+
+        chooseTime.setOnClickListener(V -> {
+            chooseTimeInit();
+        });
+
+
+
+
     }
+
+
+
+
+
+
 
 
 
@@ -99,6 +126,19 @@ public class AppointmentActivity extends Fragment {
 
             }
         });
+
+
+    }
+
+    private void chooseTimeInit(){
+        Calendar selectedDate = Calendar.getInstance();
+        Calendar startDate = Calendar.getInstance();
+        Calendar endDate = Calendar.getInstance();
+
+
+        startDate.set(selectedDate.get(Calendar.YEAR),selectedDate.get(Calendar.MONTH),selectedDate.get(Calendar.DATE));
+        endDate.set(selectedDate.get(Calendar.YEAR),selectedDate.get(Calendar.MONTH),selectedDate.get(Calendar.DATE)+7);
+
 
 
     }
