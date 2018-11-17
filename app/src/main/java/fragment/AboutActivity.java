@@ -24,9 +24,9 @@ public class AboutActivity extends Fragment {
         return view;
     }
 
-    @Override
-    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        return MoveAnimation.create(MoveAnimation.LEFT,enter,1000);
-
-    }
+//    @Override
+//    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+//        return MoveAnimation.create(MoveAnimation.LEFT,enter,500);
+//
+//    }
 }

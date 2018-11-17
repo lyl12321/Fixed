@@ -1,6 +1,7 @@
 package fixed;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,6 +22,10 @@ import fragment.*;
 
 
 public class MainActivity extends BaseActivity {
+
+    Fragment homeActivity = new HomeActivity();
+    Fragment appointmentActivity = new AppointmentActivity();
+    Fragment aboutActivity = new AboutActivity();
 
     /*
     申请所需权限
@@ -80,17 +85,17 @@ public class MainActivity extends BaseActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    replaceFragment(new HomeActivity());
+                    replaceFragment(homeActivity);
 
 
                     return true;
                 case R.id.navigation_appointment:
 
-                    replaceFragment(new AppointmentActivity());
+                    replaceFragment(appointmentActivity);
 
                     return true;
                 case R.id.navigation_about:
-                    replaceFragment(new AboutActivity());
+                    replaceFragment(aboutActivity);
 
                     return true;
             }
@@ -102,7 +107,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        replaceFragment(new HomeActivity());
+        replaceFragment(homeActivity);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)

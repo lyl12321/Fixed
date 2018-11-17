@@ -24,7 +24,7 @@ public class HomeActivity extends Fragment {
 
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        return MoveAnimation.create(MoveAnimation.UP,enter,1000);
+        return MoveAnimation.create(MoveAnimation.DOWN,enter,500);
 
     }
 }

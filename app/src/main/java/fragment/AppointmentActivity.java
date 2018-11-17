@@ -25,9 +25,9 @@ public class AppointmentActivity extends Fragment {
     }
 
 
-    @Override
-    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        return MoveAnimation.create(MoveAnimation.LEFT,enter,1000);
-
-    }
+//    @Override
+//    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+//        return MoveAnimation.create(MoveAnimation.LEFT,enter,500);
+//
+//    }
 }
