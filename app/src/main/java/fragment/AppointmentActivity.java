@@ -36,8 +36,6 @@ public class AppointmentActivity extends Fragment {
     private NiceSpinner floorNumber;
     private NiceSpinner sNumber;
     private Button chooseTime;
-    private String sTime = new String();
-
 
     @Nullable
     @Override
@@ -57,7 +55,8 @@ public class AppointmentActivity extends Fragment {
 
 
 
-
+        buildNumber.attachDataSource(new LinkedList<>(Arrays.asList("1北","1南","2北","2南","3北","3南","5北","5南")));
+        initSpinner();
 
 
 
@@ -67,13 +66,14 @@ public class AppointmentActivity extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        buildNumber.attachDataSource(new LinkedList<>(Arrays.asList("1北","1南","2北","2南","3北","3南","5北","5南")));
-        initSpinner();
+
 
 
 
         chooseTime.setOnClickListener(V -> {
+
             chooseTimeInit();
+
         });
 
 
@@ -110,7 +110,7 @@ public class AppointmentActivity extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 sAdapter.clear();
-                sNumber.setText((position+1)+"01");
+
 
                 for (int j = 1; j <= maxSNumber; j++){
                     if (j < 10){
@@ -123,6 +123,7 @@ public class AppointmentActivity extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
 
             }
         });
@@ -138,7 +139,6 @@ public class AppointmentActivity extends Fragment {
 
         startDate.set(selectedDate.get(Calendar.YEAR),selectedDate.get(Calendar.MONTH),selectedDate.get(Calendar.DATE));
         endDate.set(selectedDate.get(Calendar.YEAR),selectedDate.get(Calendar.MONTH),selectedDate.get(Calendar.DATE)+7);
-
 
 
     }
