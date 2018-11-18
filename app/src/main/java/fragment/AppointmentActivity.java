@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -26,6 +28,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 import context.MyApplication;
 import liyulong.com.fixed.R;
@@ -44,6 +47,11 @@ public class AppointmentActivity extends Fragment {
     private int aDay;
     private int aHour;
     private int aMinute;
+    private CheckBox[] checkBoxes;
+
+    private Button buttonCommit;
+
+
 
     @Nullable
     @Override
@@ -57,13 +65,16 @@ public class AppointmentActivity extends Fragment {
         sNumber = view.findViewById(R.id.niceSpinner_SNumber);
         chooseTime = view.findViewById(R.id.button_Time);
         date = Calendar.getInstance();
+        checkBoxes = new CheckBox[5];
+        checkBoxes[0] = view.findViewById(R.id.checkBox1);
+        checkBoxes[1] = view.findViewById(R.id.checkBox2);
+        checkBoxes[2] = view.findViewById(R.id.checkBox3);
+        checkBoxes[3] = view.findViewById(R.id.checkBox4);
+        checkBoxes[4] = view.findViewById(R.id.checkBox5);
+        buttonCommit = view.findViewById(R.id.button_Commit);
 
 
-
-
-
-
-
+        phone.setInputType(InputType.TYPE_CLASS_NUMBER);
         buildNumber.attachDataSource(new LinkedList<>(Arrays.asList("1北","1南","2北","2南","3北","3南","5北","5南")));
         initSpinner();
 
@@ -76,9 +87,6 @@ public class AppointmentActivity extends Fragment {
     public void onStart() {
         super.onStart();
 
-
-
-
         chooseTime.setOnClickListener(V -> {
 
             chooseTimeInit();
@@ -86,8 +94,31 @@ public class AppointmentActivity extends Fragment {
         });
 
 
+       buttonCommit.setOnClickListener(V -> {
+           Toast.makeText(getContext(),commit(),Toast.LENGTH_SHORT).show();
+
+       });
 
 
+
+
+    }
+
+
+
+    private String commit(){
+        String question = new String();
+
+        for(int i = 0; i <=4; i++){
+            if (checkBoxes[i].isChecked()){
+                question += checkBoxes[i].getText()+",";
+            }
+        }
+        return "姓名:"+name.getText()+";"+
+                "电话:"+phone.getText()+";"+
+                "地址:"+buildNumber.getText()+sNumber.getText()+";"+
+                "预约时间:"+chooseTime.getText()+";"+
+                "出现的问题:"+question;
     }
 
 
@@ -171,6 +202,7 @@ public class AppointmentActivity extends Fragment {
 
 
     }
+
 
 
 
