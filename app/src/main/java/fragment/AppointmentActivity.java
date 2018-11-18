@@ -1,5 +1,7 @@
 package fragment;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,10 +9,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -25,7 +28,6 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import context.MyApplication;
-import fixed.MainActivity;
 import liyulong.com.fixed.R;
 
 public class AppointmentActivity extends Fragment {
@@ -36,6 +38,12 @@ public class AppointmentActivity extends Fragment {
     private NiceSpinner floorNumber;
     private NiceSpinner sNumber;
     private Button chooseTime;
+    private Calendar date;
+    private int aYear;
+    private int aMonth;
+    private int aDay;
+    private int aHour;
+    private int aMinute;
 
     @Nullable
     @Override
@@ -48,6 +56,7 @@ public class AppointmentActivity extends Fragment {
         floorNumber = view.findViewById(R.id.niceSpinner_FloorNumber);
         sNumber = view.findViewById(R.id.niceSpinner_SNumber);
         chooseTime = view.findViewById(R.id.button_Time);
+        date = Calendar.getInstance();
 
 
 
@@ -124,7 +133,6 @@ public class AppointmentActivity extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
-
             }
         });
 
@@ -132,13 +140,34 @@ public class AppointmentActivity extends Fragment {
     }
 
     private void chooseTimeInit(){
-        Calendar selectedDate = Calendar.getInstance();
-        Calendar startDate = Calendar.getInstance();
-        Calendar endDate = Calendar.getInstance();
 
+//        Calendar startDate = Calendar.getInstance();
+//        Calendar endDate = Calendar.getInstance();
+//
+//
+//        startDate.set(selectedDate.get(Calendar.YEAR),selectedDate.get(Calendar.MONTH),selectedDate.get(Calendar.DATE));
+//        endDate.set(selectedDate.get(Calendar.YEAR),selectedDate.get(Calendar.MONTH),selectedDate.get(Calendar.DATE)+7);
 
-        startDate.set(selectedDate.get(Calendar.YEAR),selectedDate.get(Calendar.MONTH),selectedDate.get(Calendar.DATE));
-        endDate.set(selectedDate.get(Calendar.YEAR),selectedDate.get(Calendar.MONTH),selectedDate.get(Calendar.DATE)+7);
+        new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        date.set(year,month,dayOfMonth,hourOfDay,minute);
+                        aYear = year;
+                        aMonth = month;
+                        aDay = dayOfMonth;
+                        aHour = hourOfDay;
+                        aMinute = minute;
+                        chooseTime.setText(year+"年"+(month+1)+"月"+dayOfMonth+"日"+"  "+hourOfDay+":"+minute);
+                    }
+                },date.get(Calendar.HOUR_OF_DAY),date.get(Calendar.MINUTE),false).show();
+
+//                Toast.makeText(getContext(),"changed",Toast.LENGTH_SHORT).show();
+            }
+        },date.get(Calendar.YEAR),date.get(Calendar.MONTH),date.get(Calendar.DAY_OF_MONTH)).show();
 
 
     }
