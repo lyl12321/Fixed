@@ -49,6 +49,8 @@ public class MainActivity extends BaseActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this,Manifest.permission.SEND_SMS)
                 != PackageManager.PERMISSION_GRANTED) {
             showAlert(this, "因为支付需要一些权限，请点击确定按钮开始授权", new DialogInterface.OnDismissListener() {
                 @Override
@@ -80,6 +82,7 @@ public class MainActivity extends BaseActivity {
 
             ActivityCompat.requestPermissions(this,
                     new String[]{
+                            Manifest.permission.SEND_SMS,
                             Manifest.permission.READ_PHONE_STATE,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE
                     }, PERMISSIONS_REQUEST_CODE);
