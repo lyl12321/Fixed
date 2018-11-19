@@ -1,18 +1,30 @@
 package fragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.telephony.SmsManager;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +37,8 @@ import android.widget.ProgressBar;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.bigkoo.pickerview.builder.TimePickerBuilder;
-import com.bigkoo.pickerview.listener.OnTimeSelectListener;
-import com.bigkoo.pickerview.view.TimePickerView;
-import com.github.ybq.android.spinkit.sprite.Sprite;
-import com.github.ybq.android.spinkit.style.DoubleBounce;
+import com.dx.dxloadingbutton.lib.LoadingButton;
+
 
 import org.angmarch.views.NiceSpinner;
 
@@ -38,10 +47,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import context.MyApplication;
 import fixed.MainActivity;
 import liyulong.com.fixed.R;
+import util.PhoneNumberMatch;
 
 public class AppointmentActivity extends Fragment {
 
@@ -59,9 +70,13 @@ public class AppointmentActivity extends Fragment {
     private int aMinute;
     private CheckBox[] checkBoxes;
 
-    private Button buttonCommit;
+    private LoadingButton buttonCommit;
     MainActivity activity;
     ProgressBar progressBar;
+
+
+
+
 
     @Nullable
     @Override
@@ -113,16 +128,24 @@ public class AppointmentActivity extends Fragment {
 
 
        buttonCommit.setOnClickListener(V -> {
+           buttonCommit.reset();
+           Calendar tempDate = Calendar.getInstance();
+           tempDate.set(aYear,aMonth,aDay,aHour,aMinute);
+
 
            //处理name,phone等等为空的情况
 
-           if (name.getText() != null
-                   || phone.getText() != null){
+
+           if (name.getText().length() != 0
+                   && phone.getText().length() == 11
+                   && PhoneNumberMatch.isMobileNO(phone.getText().toString())
+                   && date.before(tempDate)
+                   ){
 
 
                new android.support.v7.app.AlertDialog.Builder(getContext())
-                       .setMessage(commit())
-                       .setNegativeButton("可能有地方有问题", new DialogInterface.OnClickListener() {
+                       .setMessage("核对您的信息!" + "\n" +commit())
+                       .setNegativeButton("返回修改", new DialogInterface.OnClickListener() {
                            @Override
                            public void onClick(DialogInterface dialog, int which) {
 
@@ -132,26 +155,16 @@ public class AppointmentActivity extends Fragment {
                            @Override
                            public void onClick(DialogInterface dialog, int which) {
 
-                               new Thread(){
-                                   @Override
-                                   public void run() {
-                                       try {
-                                           progressBar.setVisibility(View.VISIBLE);
+                               buttonCommit.startLoading();
 
-                                           sleep(2000);
-                                       } catch (InterruptedException e) {
-                                           e.printStackTrace();
-                                       }
-                                   }
-                               }.run();
+                               sendSMS("+8613365591802",commit());
 
-                               activity.sendSMS("+8613365591802",commit());
-                               progressBar.setVisibility(View.GONE);
 
                            }
                        })
                        .setCancelable(false)
                        .show();
+
 
 //
 //               activity.showAlert(getContext(), "核对您的信息:" + "\n" + commit() + "\n" + "是否确认提交", new AdapterView.OnItemSelectedListener() {
@@ -169,6 +182,18 @@ public class AppointmentActivity extends Fragment {
 //
 //                   }
 //               });
+           } else {
+
+               new android.support.v7.app.AlertDialog.Builder(getContext())
+                       .setMessage("您的输入有问题，请检查" +"\n"+
+                               "1.姓名不能为空" + "\n" +
+                               "2.联系方式暂时只支持13位大陆电话" + "\n"+
+                               "3.预约时间要大于现在的时间")
+                       .setNegativeButton("返回修改",null)
+                       .show();
+
+
+
            }
 
 
@@ -285,6 +310,95 @@ public class AppointmentActivity extends Fragment {
 
 
     }
+
+
+
+
+
+    public void sendSMS(String phoneNumber,String message){
+
+
+
+
+        if (ContextCompat.checkSelfPermission(activity,Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED){
+            Toast.makeText(activity,"无法获取到短信权限，需要手动点发送",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:"+phoneNumber));
+            intent.putExtra("sms_body", message);
+            startActivity(intent);
+            buttonCommit.loadingSuccessful();
+
+        } else {
+            //处理返回的发送状态
+            String SENT_SMS_ACTION = "SENT_SMS_ACTION";
+            Intent sentIntent = new Intent(SENT_SMS_ACTION);
+            PendingIntent sendIntent= PendingIntent.getBroadcast(activity, 0, sentIntent,
+                    0);
+// register the Broadcast Receivers
+            activity.registerReceiver(new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context _context, Intent _intent) {
+                    switch (getResultCode()) {
+                        case Activity.RESULT_OK:
+
+                            activity.showToast(getContext(),"成功向技术人员提交消息！正在检测是否接收，不要关闭应用");
+                            break;
+                        case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+                        case SmsManager.RESULT_ERROR_RADIO_OFF:
+                        case SmsManager.RESULT_ERROR_NULL_PDU:
+
+//                            buttonCommit.loadingFailed();
+
+                            new android.support.v7.app.AlertDialog.Builder(getContext())
+                                    .setMessage("我也不知道啥情况，反正出错了，检查下吧")
+                                    .setNegativeButton("好的", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            buttonCommit.loadingFailed();
+                                        }
+                                    })
+                                    .show();
+
+//                            Toast.makeText(MainActivity.this,"",Toast.LENGTH_LONG).show();
+                            break;
+                    }
+                }
+            }, new IntentFilter(SENT_SMS_ACTION));
+            //处理返回的接收状态
+            String DELIVERED_SMS_ACTION = "DELIVERED_SMS_ACTION";
+// create the deilverIntent parameter
+            Intent deliverIntent = new Intent(DELIVERED_SMS_ACTION);
+            PendingIntent backIntent= PendingIntent.getBroadcast(activity, 0,
+                    deliverIntent, 0);
+            activity.registerReceiver(new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context _context, Intent _intent) {
+
+//                    buttonCommit.loadingSuccessful();
+
+
+//                    Toast.makeText(MainActivity.this,
+//                            "", Toast.LENGTH_SHORT)
+//                            .show();
+
+                    new android.support.v7.app.AlertDialog.Builder(getContext())
+                            .setMessage("技术人员会在两小时内联系您，请耐性等候")
+                            .setNegativeButton("好的", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    buttonCommit.loadingSuccessful();
+                                }
+                            })
+                            .show();
+
+                }
+            }, new IntentFilter(DELIVERED_SMS_ACTION));
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNumber,null,message,sendIntent,backIntent);
+        }
+
+    }
+
 
 
 

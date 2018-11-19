@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <!--<TextView-->
@@ -282,6 +283,10 @@
                     android:textSize="18dp"
                     android:id="@+id/checkBox5"/>
             </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="注：以上项目基础费为20人民币"/>
 
 
 
@@ -289,16 +294,29 @@
         </LinearLayout>
 
 
-        <Button
+
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+
+            <!--android:backgroundTintMode="screen"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:padding="12dp"-->
+            <!--android:text="提交"-->
+            <!--android:textColor="@color/colorAccent"-->
+            <!--android:id="@+id/button_Commit"/>-->
+
+
+        <com.dx.dxloadingbutton.lib.LoadingButton
+
+            android:id="@+id/button_Commit"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:lb_cornerRadius="56"
+            app:lb_btnText="提交"
 
-            android:backgroundTintMode="screen"
-            android:layout_gravity="center"
-            android:padding="12dp"
-            android:text="提交"
-            android:textColor="@color/colorAccent"
-            android:id="@+id/button_Commit"/>
+            />
 
 
 

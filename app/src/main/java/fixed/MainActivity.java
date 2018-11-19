@@ -12,6 +12,8 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.SharedMemory;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -29,6 +31,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.contrarywind.listener.OnItemSelectedListener;
+import com.dx.dxloadingbutton.lib.LoadingButton;
 
 import context.MyApplication;
 import liyulong.com.fixed.R;
@@ -40,7 +43,7 @@ public class MainActivity extends BaseActivity {
     Fragment homeActivity = new HomeActivity();
     Fragment appointmentActivity = new AppointmentActivity();
     Fragment aboutActivity = new AboutActivity();
-
+    AppointmentActivity appointmentActivityB;
 
 
 
@@ -51,6 +54,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         replaceFragment(homeActivity);
+        appointmentActivityB = (AppointmentActivity) getSupportFragmentManager().findFragmentById(R.id.frameLyout_main);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
@@ -155,6 +159,7 @@ public class MainActivity extends BaseActivity {
 
                     replaceFragment(appointmentActivity);
 
+
                     return true;
                 case R.id.navigation_about:
                     replaceFragment(aboutActivity);
@@ -171,8 +176,8 @@ public class MainActivity extends BaseActivity {
 
 
 
-    public void sendSMS(String phoneNumber,String message){
 
+    public void sendSMS(String phoneNumber,String message){
 
 
 
@@ -183,6 +188,7 @@ public class MainActivity extends BaseActivity {
             Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:"+phoneNumber));
             intent.putExtra("sms_body", message);
             startActivity(intent);
+
         } else {
             //处理返回的发送状态
             String SENT_SMS_ACTION = "SENT_SMS_ACTION";
@@ -195,12 +201,26 @@ public class MainActivity extends BaseActivity {
                 public void onReceive(Context _context, Intent _intent) {
                     switch (getResultCode()) {
                         case Activity.RESULT_OK:
-                            showToast(MainActivity.this,"成功向技术人员发送消息！");
+
+                            showToast(MainActivity.this,"成功向技术人员提交消息！正在检测是否接收，不要关闭应用");
                             break;
                         case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
                         case SmsManager.RESULT_ERROR_RADIO_OFF:
                         case SmsManager.RESULT_ERROR_NULL_PDU:
-                            Toast.makeText(MainActivity.this,"我也不知道啥情况，反正出错了，检查下吧",Toast.LENGTH_LONG).show();
+
+//                            buttonCommit.loadingFailed();
+
+                            new android.support.v7.app.AlertDialog.Builder(MainActivity.this)
+                                    .setMessage("我也不知道啥情况，反正出错了，检查下吧")
+                                    .setNegativeButton("好的", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    })
+                                    .show();
+
+//                            Toast.makeText(MainActivity.this,"",Toast.LENGTH_LONG).show();
                             break;
                     }
                 }
@@ -214,9 +234,24 @@ public class MainActivity extends BaseActivity {
             this.registerReceiver(new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context _context, Intent _intent) {
-                    Toast.makeText(MainActivity.this,
-                            "技术人员会在两小时内联系您，请耐性等候", Toast.LENGTH_SHORT)
+
+//                    buttonCommit.loadingSuccessful();
+
+
+//                    Toast.makeText(MainActivity.this,
+//                            "", Toast.LENGTH_SHORT)
+//                            .show();
+
+                    new android.support.v7.app.AlertDialog.Builder(MainActivity.this)
+                            .setMessage("技术人员会在两小时内联系您，请耐性等候")
+                            .setNegativeButton("好的", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
                             .show();
+
                 }
             }, new IntentFilter(DELIVERED_SMS_ACTION));
             SmsManager smsManager = SmsManager.getDefault();
@@ -250,7 +285,7 @@ public class MainActivity extends BaseActivity {
         transaction.replace(R.id.frameLyout_main,fragment);
         transaction.commit();
     }
-    private static void showToast(Context context, String msg) {
+    public static void showToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
 //    public static void showAlert(Context ctx, String info) {
