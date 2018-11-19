@@ -1,11 +1,17 @@
 package fragment;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +21,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 
 import org.angmarch.views.NiceSpinner;
 
@@ -31,6 +40,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import context.MyApplication;
+import fixed.MainActivity;
 import liyulong.com.fixed.R;
 
 public class AppointmentActivity extends Fragment {
@@ -50,8 +60,8 @@ public class AppointmentActivity extends Fragment {
     private CheckBox[] checkBoxes;
 
     private Button buttonCommit;
-
-
+    MainActivity activity;
+    ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -72,6 +82,14 @@ public class AppointmentActivity extends Fragment {
         checkBoxes[3] = view.findViewById(R.id.checkBox4);
         checkBoxes[4] = view.findViewById(R.id.checkBox5);
         buttonCommit = view.findViewById(R.id.button_Commit);
+        activity = (MainActivity) getActivity();
+
+
+        progressBar = view.findViewById(R.id.spin_kit);
+
+//        progressBar.setIndeterminateDrawable(new DoubleBounce());
+
+
 
 
         phone.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -95,7 +113,70 @@ public class AppointmentActivity extends Fragment {
 
 
        buttonCommit.setOnClickListener(V -> {
-           Toast.makeText(getContext(),commit(),Toast.LENGTH_SHORT).show();
+
+           //处理name,phone等等为空的情况
+
+           if (name.getText() != null
+                   || phone.getText() != null){
+
+
+               new android.support.v7.app.AlertDialog.Builder(getContext())
+                       .setMessage(commit())
+                       .setNegativeButton("可能有地方有问题", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+
+                           }
+                       })
+                       .setPositiveButton("ojbk了，提交吧", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+
+                               new Thread(){
+                                   @Override
+                                   public void run() {
+                                       try {
+                                           progressBar.setVisibility(View.VISIBLE);
+
+                                           sleep(2000);
+                                       } catch (InterruptedException e) {
+                                           e.printStackTrace();
+                                       }
+                                   }
+                               }.run();
+
+                               activity.sendSMS("+8613365591802",commit());
+                               progressBar.setVisibility(View.GONE);
+
+                           }
+                       })
+                       .setCancelable(false)
+                       .show();
+
+//
+//               activity.showAlert(getContext(), "核对您的信息:" + "\n" + commit() + "\n" + "是否确认提交", new AdapterView.OnItemSelectedListener() {
+//                   @Override
+//                   public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                       if (position == 0){
+//
+//                       } else {
+//
+//                       }
+//                   }
+//
+//                   @Override
+//                   public void onNothingSelected(AdapterView<?> parent) {
+//
+//                   }
+//               });
+           }
+
+
+           
+           
+
+//           Toast.makeText(getContext(),commit(),Toast.LENGTH_SHORT).show();
+
 
        });
 
@@ -114,10 +195,11 @@ public class AppointmentActivity extends Fragment {
                 question += checkBoxes[i].getText()+",";
             }
         }
-        return "姓名:"+name.getText()+";"+
-                "电话:"+phone.getText()+";"+
-                "地址:"+buildNumber.getText()+sNumber.getText()+";"+
-                "预约时间:"+chooseTime.getText()+";"+
+
+        return "姓名:"+name.getText()+'\n'+
+                "电话:"+phone.getText()+'\n'+
+                "地址:"+buildNumber.getText()+sNumber.getText()+'\n'+
+                "预约时间:"+chooseTime.getText()+'\n'+
                 "出现的问题:"+question;
     }
 
@@ -159,6 +241,7 @@ public class AppointmentActivity extends Fragment {
                         sAdapter.add((position+1)+""+j+"");
                     }
                 }
+                sNumber.attachDataSource(sAdapter);
             }
 
             @Override
@@ -194,7 +277,7 @@ public class AppointmentActivity extends Fragment {
                         aMinute = minute;
                         chooseTime.setText(year+"年"+(month+1)+"月"+dayOfMonth+"日"+"  "+hourOfDay+":"+minute);
                     }
-                },date.get(Calendar.HOUR_OF_DAY),date.get(Calendar.MINUTE),false).show();
+                },date.get(Calendar.HOUR_OF_DAY),date.get(Calendar.MINUTE),true).show();
 
 //                Toast.makeText(getContext(),"changed",Toast.LENGTH_SHORT).show();
             }
@@ -202,6 +285,7 @@ public class AppointmentActivity extends Fragment {
 
 
     }
+
 
 
 

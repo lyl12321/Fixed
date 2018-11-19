@@ -5,15 +5,13 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="36dp"
-        android:text="开始预约"
-        android:textColor="@color/colorPrimary"
-        android:padding="12dp"
-        />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="开始预约"-->
+        <!--android:textColor="@color/colorPrimary"-->
+        <!--android:padding="12dp"-->
+        <!--/>-->
 
 
 
@@ -130,7 +128,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="选择位置"
-                android:textSize="14dp"
                 android:gravity="center"/>
 
 
@@ -185,11 +182,11 @@
             android:layout_weight="1"
             />
 
-        <android.support.design.button.MaterialButton
+        <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="9"
-            android:backgroundTint="@color/appBackColor"
+            android:backgroundTintMode="screen"
             android:outlineProvider="none"
             android:textColor="@color/blue"
             android:text="点我选择时间"
@@ -233,9 +230,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:textSize="26dp"
-                    android:textColor="@color/red"
+                    android:textColor="#FFF22872"
                     android:text="选择你遇到的问题"/>
             </LinearLayout>
 
@@ -249,19 +245,19 @@
                     android:layout_height="wrap_content"
                     android:text="蓝屏"
                     android:textSize="18dp"
-                    android:padding="14dp"
+                    android:padding="8dp"
                     android:id="@+id/checkBox1"/>
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="14dp"
+                    android:padding="8dp"
                     android:text="运行卡顿"
                     android:textSize="18dp"
                     android:id="@+id/checkBox2"/>
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="14dp"
+                    android:padding="8dp"
                     android:text="软件报错"
                     android:textSize="18dp"
                     android:id="@+id/checkBox3"/>
@@ -276,12 +272,12 @@
                     android:layout_height="wrap_content"
                     android:text="开不了机"
                     android:textSize="18dp"
-                    android:padding="14dp"
+                    android:padding="8dp"
                     android:id="@+id/checkBox4"/>
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="14dp"
+                    android:padding="8dp"
                     android:text="其它迷之问题"
                     android:textSize="18dp"
                     android:id="@+id/checkBox5"/>
@@ -293,13 +289,15 @@
         </LinearLayout>
 
 
-        <android.support.design.button.MaterialButton
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
+            android:backgroundTintMode="screen"
             android:layout_gravity="center"
             android:padding="12dp"
             android:text="提交"
+            android:textColor="@color/colorAccent"
             android:id="@+id/button_Commit"/>
 
 

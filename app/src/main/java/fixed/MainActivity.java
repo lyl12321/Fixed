@@ -3,10 +3,16 @@ package fixed;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.SharedMemory;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -14,11 +20,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.telephony.SmsManager;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.contrarywind.listener.OnItemSelectedListener;
+
+import context.MyApplication;
 import liyulong.com.fixed.R;
 import fragment.*;
 
@@ -52,12 +64,22 @@ public class MainActivity extends BaseActivity {
                 != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(this,Manifest.permission.SEND_SMS)
                 != PackageManager.PERMISSION_GRANTED) {
-            showAlert(this, "因为支付需要一些权限，请点击确定按钮开始授权", new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    requestPermission();
-                }
-            });
+            new android.support.v7.app.AlertDialog.Builder(this)
+                    .setMessage("需要一些权限，点击确定开始授权")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            requestPermission();
+                        }
+                    })
+//                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+//                        }
+//                    })
+                    .setCancelable(false)
+                    .show();
 
         }
 
@@ -149,7 +171,59 @@ public class MainActivity extends BaseActivity {
 
 
 
+    public void sendSMS(String phoneNumber,String message){
 
+
+
+
+
+        if (ContextCompat.checkSelfPermission(this,Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED){
+            Toast.makeText(this,"无法获取到短信权限，需要手动点发送",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:"+phoneNumber));
+            intent.putExtra("sms_body", message);
+            startActivity(intent);
+        } else {
+            //处理返回的发送状态
+            String SENT_SMS_ACTION = "SENT_SMS_ACTION";
+            Intent sentIntent = new Intent(SENT_SMS_ACTION);
+            PendingIntent sendIntent= PendingIntent.getBroadcast(this, 0, sentIntent,
+                    0);
+// register the Broadcast Receivers
+            this.registerReceiver(new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context _context, Intent _intent) {
+                    switch (getResultCode()) {
+                        case Activity.RESULT_OK:
+                            showToast(MainActivity.this,"成功向技术人员发送消息！");
+                            break;
+                        case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+                        case SmsManager.RESULT_ERROR_RADIO_OFF:
+                        case SmsManager.RESULT_ERROR_NULL_PDU:
+                            Toast.makeText(MainActivity.this,"我也不知道啥情况，反正出错了，检查下吧",Toast.LENGTH_LONG).show();
+                            break;
+                    }
+                }
+            }, new IntentFilter(SENT_SMS_ACTION));
+            //处理返回的接收状态
+            String DELIVERED_SMS_ACTION = "DELIVERED_SMS_ACTION";
+// create the deilverIntent parameter
+            Intent deliverIntent = new Intent(DELIVERED_SMS_ACTION);
+            PendingIntent backIntent= PendingIntent.getBroadcast(this, 0,
+                    deliverIntent, 0);
+            this.registerReceiver(new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context _context, Intent _intent) {
+                    Toast.makeText(MainActivity.this,
+                            "技术人员会在两小时内联系您，请耐性等候", Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }, new IntentFilter(DELIVERED_SMS_ACTION));
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNumber,null,message,sendIntent,backIntent);
+        }
+
+    }
 
 
 
@@ -179,17 +253,19 @@ public class MainActivity extends BaseActivity {
     private static void showToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
-    private static void showAlert(Context ctx, String info) {
-        showAlert(ctx, info, null);
-    }
-
-    private static void showAlert(Context ctx, String info, DialogInterface.OnDismissListener onDismiss) {
-        new AlertDialog.Builder(ctx)
-                .setMessage(info)
-                .setPositiveButton("确定", null)
-                .setOnDismissListener(onDismiss)
-                .show();
-    }
+//    public static void showAlert(Context ctx, String info) {
+//        showAlert(ctx, info, null);
+//    }
+//
+//    public static void showAlert(Context ctx, String info, AdapterView.OnItemSelectedListener onItemSelectedListener) {
+//        new AlertDialog.Builder(ctx)
+//                .setMessage(info)
+//                .setNegativeButton("取消",null)
+//                .setPositiveButton("确定", null)
+////                .setOnDismissListener(onDismiss)
+//                .setOnItemSelectedListener(onItemSelectedListener)
+//                .show();
+//    }
 
 
 }
