@@ -302,6 +302,8 @@ public class AppointmentActivity extends Fragment {
 //        startDate.set(selectedDate.get(Calendar.YEAR),selectedDate.get(Calendar.MONTH),selectedDate.get(Calendar.DATE));
 //        endDate.set(selectedDate.get(Calendar.YEAR),selectedDate.get(Calendar.MONTH),selectedDate.get(Calendar.DATE)+7);
 
+
+
         new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -334,8 +336,10 @@ public class AppointmentActivity extends Fragment {
 
 
 
+
         if (ContextCompat.checkSelfPermission(activity,Manifest.permission.SEND_SMS)
                 != PackageManager.PERMISSION_GRANTED){
+
             Toast.makeText(activity,"无法获取到短信权限，需要手动点发送",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:"+phoneNumber));
             intent.putExtra("sms_body", message);

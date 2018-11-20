@@ -7,6 +7,18 @@
     android:orientation="vertical"
     tools:context="fixed.MainActivity"
     android:background="@color/ic_launcher_background">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/tool_bar"
+        android:background="?attr/actionModeBackground"
+        android:elevation="6dp"
+        >
+
+
+
+
+    </android.support.v7.widget.Toolbar>
 
     <FrameLayout
         android:id="@+id/frameLyout_main"
@@ -23,7 +35,6 @@
         android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/navigation"
-
         />
 
 </LinearLayout>

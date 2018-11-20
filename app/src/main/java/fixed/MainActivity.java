@@ -9,15 +9,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
-import android.os.SharedMemory;
+
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -25,25 +24,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
+
 import android.widget.Toast;
 
-import com.contrarywind.listener.OnItemSelectedListener;
-import com.dx.dxloadingbutton.lib.LoadingButton;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Properties;
 
-import context.MyApplication;
 import liyulong.com.fixed.R;
 import fragment.*;
+import okhttp3.Call;
+import okhttp3.Response;
+import util.HttpUtil;
 
 
 public class MainActivity extends BaseActivity {
@@ -52,6 +46,9 @@ public class MainActivity extends BaseActivity {
     Fragment appointmentActivity = new AppointmentActivity();
     Fragment aboutActivity = new AboutActivity();
     AppointmentActivity appointmentActivityB;
+    private Toolbar toolbar;
+
+
     private static final String KEY_MIUI_VERSION_CODE = "ro.miui.ui.version.code";
     private static final String KEY_MIUI_VERSION_NAME = "ro.miui.ui.version.name";
     private static final String KEY_MIUI_INTERNAL_STORAGE = "ro.miui.internal.storage";
@@ -65,12 +62,17 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         replaceFragment(homeActivity);
+        toolbar = findViewById(R.id.tool_bar);
+        toolbar.setLogo(R.drawable.ic_home);
+        toolbar.setTitle("    主页");
+        setSupportActionBar(toolbar);
         appointmentActivityB = (AppointmentActivity) getSupportFragmentManager().findFragmentById(R.id.frameLyout_main);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
-
+//        loadBingPic();
 
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -112,7 +114,30 @@ public class MainActivity extends BaseActivity {
 
 
 
-
+//    private void loadBingPic(){
+//        String requestBingPic = "http://guolin.tech/api/bing_pic";
+//        HttpUtil.sendOkHttpRequest(requestBingPic, new okhttp3.Callback() {
+//
+//            public void onResponse(Call call, Response response) throws IOException {
+//                final String bingPic = response.body().string();
+//                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(MainActivity.this).edit();
+//                editor.putString("bing_pic", bingPic);
+//                editor.apply();
+////                mainActivityH.runOnUiThread(new Runnable() {
+////                    @Override
+////                    public void run() {
+////                        Glide.with(getContext()).load(bingPic).into(bingPicImg);
+////                    }
+////                });
+//            }
+//
+//
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//        });
+//
+//    }
     /*
     申请所需权限
      */
@@ -172,17 +197,23 @@ public class MainActivity extends BaseActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    toolbar.setLogo(R.drawable.ic_home);
+                    toolbar.setTitle("    主页");
                     replaceFragment(homeActivity);
+
 
 
                     return true;
                 case R.id.navigation_appointment:
-
+                    toolbar.setLogo(R.drawable.ic_time_circle);
+                    toolbar.setTitle("    预约");
                     replaceFragment(appointmentActivity);
 
 
                     return true;
                 case R.id.navigation_about:
+                    toolbar.setLogo(R.drawable.ic_info_circle);
+                    toolbar.setTitle("    关于");
                     replaceFragment(aboutActivity);
 
                     return true;

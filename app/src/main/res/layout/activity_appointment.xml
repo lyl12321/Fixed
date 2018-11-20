@@ -329,10 +329,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:lb_cornerRadius="56"
-
             app:lb_btnColor="@color/blue"
             app:lb_btnText="提交"
-
 
             />
 

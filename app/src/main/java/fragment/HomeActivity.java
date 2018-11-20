@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,10 +38,11 @@ public class HomeActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         view = inflater.inflate(R.layout.activity_home, container, false);
         mainActivityH = (MainActivity) getActivity();
         bingPicImg = view.findViewById(R.id.bing_pic_img);
-        mainActivityH = (MainActivity) getActivity();
+
 
         return view;
     }
@@ -48,10 +50,10 @@ public class HomeActivity extends Fragment {
 
 
 
-    @Override
-    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        return MoveAnimation.create(MoveAnimation.DOWN, enter, 500);
-    }
+//    @Override
+//    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+//        return MoveAnimation.create(MoveAnimation.DOWN, enter, 500);
+//    }
 
 
 
