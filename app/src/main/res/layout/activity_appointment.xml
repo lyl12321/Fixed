@@ -15,6 +15,18 @@
         <!--/>-->
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
 
 
     <LinearLayout
@@ -88,13 +100,6 @@
 
     </LinearLayout>
 
-
-
-
-
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -109,17 +114,17 @@
             android:layout_weight="1"
             />
         <!--<android.support.design.button.MaterialButton-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="9"-->
-            <!--android:backgroundTint="@color/appBackColor"-->
-            <!--android:outlineProvider="none"-->
-            <!--android:textColor="@color/blue"-->
-            <!--android:text="点我选择地址"-->
-            <!--android:textSize="18dp"-->
-            <!--android:id="@+id/button_Address"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="9"-->
+        <!--android:backgroundTint="@color/appBackColor"-->
+        <!--android:outlineProvider="none"-->
+        <!--android:textColor="@color/blue"-->
+        <!--android:text="点我选择地址"-->
+        <!--android:textSize="18dp"-->
+        <!--android:id="@+id/button_Address"-->
 
-            <!--/>-->
+        <!--/>-->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -165,10 +170,6 @@
     </LinearLayout>
 
 
-
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -205,16 +206,16 @@
         android:orientation="vertical">
 
         <!--<android.support.design.widget.TextInputLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="5"-->
-            <!--android:padding="12dp">-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="5"-->
+        <!--android:padding="12dp">-->
 
-            <!--<EditText-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:scrollbars="vertical"-->
-                <!--/>-->
+        <!--<EditText-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:scrollbars="vertical"-->
+        <!--/>-->
         <!--</android.support.design.widget.TextInputLayout>-->
         <LinearLayout
             android:layout_width="match_parent"
@@ -232,7 +233,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="26dp"
-                    android:textColor="#FFF22872"
+                    android:textColor="#F67280"
                     android:text="选择你遇到的问题"/>
             </LinearLayout>
 
@@ -296,31 +297,44 @@
 
 
         <!--<Button-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
 
-            <!--android:backgroundTintMode="screen"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:padding="12dp"-->
-            <!--android:text="提交"-->
-            <!--android:textColor="@color/colorAccent"-->
-            <!--android:id="@+id/button_Commit"/>-->
+        <!--android:backgroundTintMode="screen"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:padding="12dp"-->
+        <!--android:text="提交"-->
+        <!--android:textColor="@color/colorAccent"-->
+        <!--android:id="@+id/button_Commit"/>-->
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
 
         <com.dx.dxloadingbutton.lib.LoadingButton
 
             android:id="@+id/button_Commit"
-            android:layout_gravity="center"
+            android:layout_gravity=""
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:lb_cornerRadius="56"
+
+            app:lb_btnColor="@color/blue"
             app:lb_btnText="提交"
 
+
             />
-
-
-
-    </LinearLayout>
 
 
 

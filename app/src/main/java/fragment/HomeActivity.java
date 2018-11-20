@@ -1,6 +1,7 @@
 package fragment;
 
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -39,16 +40,7 @@ public class HomeActivity extends Fragment {
         view = inflater.inflate(R.layout.activity_home, container, false);
         mainActivityH = (MainActivity) getActivity();
         bingPicImg = view.findViewById(R.id.bing_pic_img);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-
-
-
-//        String bingPic = prefs.getString("bing_pic",null);
-//        if (bingPic != null){
-//            Glide.with(MyApplication.getContext()).load(bingPic).into(bingPicImg);
-//        } else {
-//            loadBingPic();
-//        }
+        mainActivityH = (MainActivity) getActivity();
 
         return view;
     }
@@ -65,29 +57,6 @@ public class HomeActivity extends Fragment {
 
 
 
-//    private void loadBingPic(){
-//        String requestBingPic = "http://guolin.tech/api/bing_pic";
-//        HttpUtil.sendOkHttpRequest(requestBingPic, new okhttp3.Callback() {
-//
-//            public void onResponse(Call call, Response response) throws IOException {
-//                final String bingPic = response.body().string();
-//                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
-//                editor.putString("bing_pic", bingPic);
-//                editor.apply();
-//                mainActivityH.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Glide.with(MyApplication.getContext()).load(bingPic).into(bingPicImg);
-//                    }
-//                });
-//            }
-//
-//
-//            public void onFailure(Call call, IOException e) {
-//                e.printStackTrace();
-//            }
-//        });
-//
-//    }
+
 
 }

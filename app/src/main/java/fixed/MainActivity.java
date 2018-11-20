@@ -10,8 +10,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SharedMemory;
@@ -33,6 +36,11 @@ import android.widget.Toast;
 import com.contrarywind.listener.OnItemSelectedListener;
 import com.dx.dxloadingbutton.lib.LoadingButton;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 import context.MyApplication;
 import liyulong.com.fixed.R;
 import fragment.*;
@@ -44,6 +52,10 @@ public class MainActivity extends BaseActivity {
     Fragment appointmentActivity = new AppointmentActivity();
     Fragment aboutActivity = new AboutActivity();
     AppointmentActivity appointmentActivityB;
+    private static final String KEY_MIUI_VERSION_CODE = "ro.miui.ui.version.code";
+    private static final String KEY_MIUI_VERSION_NAME = "ro.miui.ui.version.name";
+    private static final String KEY_MIUI_INTERNAL_STORAGE = "ro.miui.internal.storage";
+
 
 
 
@@ -62,40 +74,49 @@ public class MainActivity extends BaseActivity {
 
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
-                != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(this,Manifest.permission.SEND_SMS)
-                != PackageManager.PERMISSION_GRANTED) {
-            new android.support.v7.app.AlertDialog.Builder(this)
-                    .setMessage("需要一些权限，点击确定开始授权")
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            requestPermission();
-                        }
-                    })
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                    != PackageManager.PERMISSION_GRANTED
+                    || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED
+//                    || ContextCompat.checkSelfPermission(this,Manifest.permission.SEND_SMS)
+//                    != PackageManager.PERMISSION_GRANTED
+                    ) {
+                new android.support.v7.app.AlertDialog.Builder(this)
+                        .setMessage("需要一些权限，点击确定开始授权")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                requestPermission();
+                            }
+                        })
 //                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
 //                        @Override
 //                        public void onClick(DialogInterface dialog, int which) {
 //
 //                        }
 //                    })
-                    .setCancelable(false)
-                    .show();
-
-        }
+                        .setCancelable(false)
+                        .show();
+            }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            View decorView = getWindow().getDecorView();
+//            decorView.setSystemUiVisibility(
+//                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+//            getWindow().setStatusBarColor(Color.TRANSPARENT);
+//        }
 
 
     }
 
 
 
+
+
     /*
     申请所需权限
      */
-    private static final int PERMISSIONS_REQUEST_CODE = 1002;
+    public static final int PERMISSIONS_REQUEST_CODE = 1002;
 
     /**
      * 检查支付宝 SDK 所需的权限，并在必要的时候动态获取。
@@ -187,6 +208,7 @@ public class MainActivity extends BaseActivity {
             Toast.makeText(this,"无法获取到短信权限，需要手动点发送",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:"+phoneNumber));
             intent.putExtra("sms_body", message);
+
             startActivity(intent);
 
         } else {
@@ -274,6 +296,25 @@ public class MainActivity extends BaseActivity {
 
 
 
+//    public static boolean isMIUI() {
+//        String device = Build.MANUFACTURER;
+////        LogUtils.v("Build.MANUFACTURER = " + device);
+//        if (device.equals("Xiaomi")) {
+//            Properties prop = new Properties();
+//            try {
+//                prop.load(new FileInputStream(new File(Environment
+//                        .getRootDirectory(), "build.prop")));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                return false;
+//            }
+//            return prop.getProperty(KEY_MIUI_VERSION_CODE, null) != null
+//                    || prop.getProperty(KEY_MIUI_VERSION_NAME, null) != null
+//                    || prop.getProperty(KEY_MIUI_INTERNAL_STORAGE, null) != null;
+//        } else {
+//            return false;
+//        }
+//    }
 
 
 

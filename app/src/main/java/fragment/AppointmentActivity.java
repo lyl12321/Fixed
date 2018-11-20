@@ -19,6 +19,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
@@ -63,6 +64,7 @@ public class AppointmentActivity extends Fragment {
     private NiceSpinner sNumber;
     private Button chooseTime;
     private Calendar date;
+    private Calendar tDate;
     private int aYear;
     private int aMonth;
     private int aDay;
@@ -90,6 +92,7 @@ public class AppointmentActivity extends Fragment {
         sNumber = view.findViewById(R.id.niceSpinner_SNumber);
         chooseTime = view.findViewById(R.id.button_Time);
         date = Calendar.getInstance();
+        tDate = Calendar.getInstance();
         checkBoxes = new CheckBox[5];
         checkBoxes[0] = view.findViewById(R.id.checkBox1);
         checkBoxes[1] = view.findViewById(R.id.checkBox2);
@@ -110,60 +113,69 @@ public class AppointmentActivity extends Fragment {
         phone.setInputType(InputType.TYPE_CLASS_NUMBER);
         buildNumber.attachDataSource(new LinkedList<>(Arrays.asList("1北","1南","2北","2南","3北","3南","5北","5南")));
         initSpinner();
-
-
-
-        return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
         chooseTime.setOnClickListener(V -> {
 
             chooseTimeInit();
 
         });
+        buttonCommit.setOnClickListener(V -> {
+            buttonCommit.reset();
+            Calendar tempDate = Calendar.getInstance();
+            tempDate.set(aYear,aMonth,aDay,aHour,aMinute);
+
+////           if (ContextCompat.checkSelfPermission(activity,Manifest.permission.SEND_SMS)
+////                   != PackageManager.PERMISSION_GRANTED) {
+////               ActivityCompat.requestPermissions(activity, new String[]{
+////                       Manifest.permission.SEND_SMS,
+//////                Manifest.permission.READ_PHONE_STATE,
+//////                Manifest.permission.WRITE_EXTERNAL_STORAGE
+////               }, MainActivity.PERMISSIONS_REQUEST_CODE);
+//
+//
+//
+//           }
 
 
-       buttonCommit.setOnClickListener(V -> {
-           buttonCommit.reset();
-           Calendar tempDate = Calendar.getInstance();
-           tempDate.set(aYear,aMonth,aDay,aHour,aMinute);
+            String tempString = "";
+
+            //处理name,phone等等为空的情况
+            if (name.getText().length() == 0){
+                tempString += "--姓名不能为空" + "\n" ;
+            }
+            if (phone.getText().length() != 11
+                    && !PhoneNumberMatch.isMobileNO(phone.getText().toString())){
+                tempString += "--联系方式暂时只支持13位大陆电话" + "\n";
+            }
+            if (!date.before(tempDate)){
+                tempString += "--预约时间要大于现在的时间"+"\n";
+            }
 
 
-           //处理name,phone等等为空的情况
+            if (tempString.length() == 0) {
 
 
-           if (name.getText().length() != 0
-                   && phone.getText().length() == 11
-                   && PhoneNumberMatch.isMobileNO(phone.getText().toString())
-                   && date.before(tempDate)
-                   ){
+
+                new android.support.v7.app.AlertDialog.Builder(getContext())
+                        .setMessage("核对您的信息!" + "\n" +commit())
+                        .setNegativeButton("返回修改", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setPositiveButton("ojbk了，提交吧", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                buttonCommit.startLoading();
+
+                                sendSMS("+8613365591802",commit());
 
 
-               new android.support.v7.app.AlertDialog.Builder(getContext())
-                       .setMessage("核对您的信息!" + "\n" +commit())
-                       .setNegativeButton("返回修改", new DialogInterface.OnClickListener() {
-                           @Override
-                           public void onClick(DialogInterface dialog, int which) {
-
-                           }
-                       })
-                       .setPositiveButton("ojbk了，提交吧", new DialogInterface.OnClickListener() {
-                           @Override
-                           public void onClick(DialogInterface dialog, int which) {
-
-                               buttonCommit.startLoading();
-
-                               sendSMS("+8613365591802",commit());
-
-
-                           }
-                       })
-                       .setCancelable(false)
-                       .show();
+                            }
+                        })
+                        .setCancelable(false)
+                        .show();
 
 
 //
@@ -182,28 +194,40 @@ public class AppointmentActivity extends Fragment {
 //
 //                   }
 //               });
-           } else {
+            } else {
 
-               new android.support.v7.app.AlertDialog.Builder(getContext())
-                       .setMessage("您的输入有问题，请检查" +"\n"+
-                               "1.姓名不能为空" + "\n" +
-                               "2.联系方式暂时只支持13位大陆电话" + "\n"+
-                               "3.预约时间要大于现在的时间")
-                       .setNegativeButton("返回修改",null)
-                       .show();
+                new android.support.v7.app.AlertDialog.Builder(getContext())
+                        .setMessage("您的输入有问题，请检查" +"\n"+
+                                tempString)
+                        .setNegativeButton("返回修改",null)
+                        .show();
 
 
 
-           }
+            }
 
 
-           
-           
+
+
 
 //           Toast.makeText(getContext(),commit(),Toast.LENGTH_SHORT).show();
 
 
-       });
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        buttonCommit.reset();
+
+
+
+
+
 
 
 
@@ -227,15 +251,6 @@ public class AppointmentActivity extends Fragment {
                 "预约时间:"+chooseTime.getText()+'\n'+
                 "出现的问题:"+question;
     }
-
-
-
-
-
-
-
-
-
 
     private void initSpinner(){
         LinkedList<String> fAdapter = new LinkedList<>();
@@ -294,7 +309,7 @@ public class AppointmentActivity extends Fragment {
                 new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        date.set(year,month,dayOfMonth,hourOfDay,minute);
+                        tDate.set(year,month,dayOfMonth,hourOfDay,minute);
                         aYear = year;
                         aMonth = month;
                         aDay = dayOfMonth;
@@ -319,14 +334,14 @@ public class AppointmentActivity extends Fragment {
 
 
 
-
         if (ContextCompat.checkSelfPermission(activity,Manifest.permission.SEND_SMS)
                 != PackageManager.PERMISSION_GRANTED){
             Toast.makeText(activity,"无法获取到短信权限，需要手动点发送",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:"+phoneNumber));
             intent.putExtra("sms_body", message);
-            startActivity(intent);
             buttonCommit.loadingSuccessful();
+            startActivity(intent);
+
 
         } else {
             //处理返回的发送状态
