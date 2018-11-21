@@ -437,9 +437,7 @@ public class AppointmentActivity extends Fragment {
                         case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
                         case SmsManager.RESULT_ERROR_RADIO_OFF:
                         case SmsManager.RESULT_ERROR_NULL_PDU:
-
 //                            buttonCommit.loadingFailed();
-
                             new android.support.v7.app.AlertDialog.Builder(getContext())
                                     .setMessage("我也不知道啥情况，反正出错了，检查下吧")
                                     .setNegativeButton("好的", new DialogInterface.OnClickListener() {
@@ -449,7 +447,6 @@ public class AppointmentActivity extends Fragment {
                                         }
                                     })
                                     .show();
-
 //                            Toast.makeText(MainActivity.this,"",Toast.LENGTH_LONG).show();
                             break;
                     }

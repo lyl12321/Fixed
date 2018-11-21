@@ -74,8 +74,6 @@ public class MainActivity extends BaseActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
-//        loadBingPic();
-
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
