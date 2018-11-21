@@ -24,12 +24,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
 
 
 
-    <LinearLayout
+            <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -65,7 +66,8 @@
 
     </LinearLayout>
 
-    <LinearLayout
+
+            <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -100,7 +102,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+            <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -183,7 +185,7 @@
     </LinearLayout>
 
 
-    <LinearLayout
+            <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -214,6 +216,8 @@
 
 
     </LinearLayout>
+
+
 
 
 
@@ -254,6 +258,12 @@
                     android:textColor="#F67280"
                     android:text="选择你遇到的问题"/>
             </LinearLayout>
+
+
+
+
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -307,10 +317,9 @@
                 android:layout_height="wrap_content"
                 android:text="注：以上项目基础费为20人民币"/>
 
-
-
-
         </LinearLayout>
+
+
 
 
 
@@ -325,13 +334,7 @@
         <!--android:textColor="@color/colorAccent"-->
         <!--android:id="@+id/button_Commit"/>-->
 
-
-
-
-
-
     </LinearLayout>
-
 
 
         </LinearLayout>
@@ -339,17 +342,26 @@
     </ScrollView>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp"
+        >
 
         <com.dx.dxloadingbutton.lib.LoadingButton
-
             android:id="@+id/button_Commit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:lb_cornerRadius="56"
             app:lb_btnColor="@color/blue"
             app:lb_btnText="提交"
-
             />
+
+
+
+    </LinearLayout>
+
 
 
 

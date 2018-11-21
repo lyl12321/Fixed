@@ -100,6 +100,7 @@ public class AppointmentActivity extends Fragment {
         chooseTime = view.findViewById(R.id.button_Time);
         date = Calendar.getInstance();
         tDate = Calendar.getInstance();
+        tDate.set(2000,4,29,0,0);
         checkBoxes = new CheckBox[5];
         checkBoxes[0] = view.findViewById(R.id.checkBox1);
         checkBoxes[1] = view.findViewById(R.id.checkBox2);
@@ -109,7 +110,7 @@ public class AppointmentActivity extends Fragment {
         buttonCommit = view.findViewById(R.id.button_Commit);
         activity = (MainActivity) getActivity();
         choosePosition = view.findViewById(R.id.button_position);
-
+        bResult = "";
         progressBar = view.findViewById(R.id.spin_kit);
 
 //        progressBar.setIndeterminateDrawable(new DoubleBounce());
@@ -158,9 +159,25 @@ public class AppointmentActivity extends Fragment {
                     && !PhoneNumberMatch.isMobileNO(phone.getText().toString())){
                 tempString += "--联系方式暂时只支持13位大陆电话" + "\n";
             }
+
+            if (bResult == ""){
+                tempString += "--位置不能为空"+"\n";
+            }
             if (!(date.before(tDate))){
                 tempString += "--预约时间不能小于现在时间"+"\n";
             }
+            String tempString1 = "";
+            for(int i = 0; i <=4; i++){
+                if (checkBoxes[i].isChecked()){
+                    tempString1 += checkBoxes[i].getText()+",";
+                }
+            }
+            if (tempString1 == ""){
+                tempString += "--您必须选择一项遇到的问题"+"\n";
+            }
+
+
+
 
 
             if (tempString.length() == 0) {
@@ -439,11 +456,21 @@ public class AppointmentActivity extends Fragment {
                         case SmsManager.RESULT_ERROR_NULL_PDU:
 //                            buttonCommit.loadingFailed();
                             new android.support.v7.app.AlertDialog.Builder(getContext())
-                                    .setMessage("我也不知道啥情况，反正出错了，检查下吧")
-                                    .setNegativeButton("好的", new DialogInterface.OnClickListener() {
+                                    .setTitle("出错啦")
+                                    .setMessage("提交失败了，是不是要手动提交")
+                                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             buttonCommit.loadingFailed();
+                                        }
+                                    })
+                                    .setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:"+phoneNumber));
+                                            intent.putExtra("sms_body", message);
+                                            buttonCommit.loadingSuccessful();
+                                            startActivity(intent);
                                         }
                                     })
                                     .show();
@@ -470,6 +497,7 @@ public class AppointmentActivity extends Fragment {
 //                            .show();
 
                     new android.support.v7.app.AlertDialog.Builder(getContext())
+                            .setTitle("成功啦")
                             .setMessage("技术人员会在两小时内联系您，请耐性等候")
                             .setNegativeButton("好的", new DialogInterface.OnClickListener() {
                                 @Override

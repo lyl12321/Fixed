@@ -56,9 +56,21 @@ public class MainActivity extends BaseActivity {
     private static final String KEY_MIUI_INTERNAL_STORAGE = "ro.miui.internal.storage";
 
 
+    @Override
+    public void onBackPressed() {
 
-
-
+        new AlertDialog.Builder(this)
+                .setTitle("退出应用程序")
+                .setMessage("确定要退出吗？我会想你的qwq")
+                .setNegativeButton("不退出",null)
+                .setPositiveButton("退出", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
