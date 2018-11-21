@@ -124,44 +124,57 @@
         <!--android:textSize="18dp"-->
         <!--android:id="@+id/button_Address"-->
 
-        <!--/>-->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="9"
-            android:paddingLeft="12dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="选择位置"
-                android:gravity="center"/>
+        <!--&lt;!&ndash;/>&ndash;&gt;-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="9"-->
+            <!--android:paddingLeft="12dp">-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:text="选择位置"-->
+                <!--android:gravity="center"/>-->
 
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="9"
+                android:backgroundTintMode="screen"
+                android:outlineProvider="none"
+                android:gravity="center"
+                android:textColor="@color/blue"
+                android:text="点我选择位置"
+                android:textSize="18dp"
+                android:id="@+id/button_position"
 
-            <org.angmarch.views.NiceSpinner
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="楼号"
-                android:id="@+id/niceSpinner_BuildNumber"
-                />
-            <org.angmarch.views.NiceSpinner
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="楼层"
-                android:id="@+id/niceSpinner_FloorNumber"
-                />
-            <org.angmarch.views.NiceSpinner
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="宿舍号"
-                android:id="@+id/niceSpinner_SNumber"
                 />
 
+            <!--<org.angmarch.views.NiceSpinner-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:text="楼号"-->
+                <!--android:id="@+id/niceSpinner_BuildNumber"-->
+                <!--/>-->
+            <!--<org.angmarch.views.NiceSpinner-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:text="楼层"-->
+                <!--android:id="@+id/niceSpinner_FloorNumber"-->
+                <!--/>-->
+            <!--<org.angmarch.views.NiceSpinner-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:text="宿舍号"-->
+                <!--android:id="@+id/niceSpinner_SNumber"-->
+                <!--/>-->
 
 
 
 
 
-        </LinearLayout>
+
+        <!--</LinearLayout>-->
 
 
 
@@ -197,7 +210,12 @@
 
             />
 
+
+
+
     </LinearLayout>
+
+
 
 
     <LinearLayout
@@ -325,7 +343,6 @@
         <com.dx.dxloadingbutton.lib.LoadingButton
 
             android:id="@+id/button_Commit"
-            android:layout_gravity=""
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:lb_cornerRadius="56"

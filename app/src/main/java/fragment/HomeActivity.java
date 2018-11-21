@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -29,9 +30,9 @@ import okhttp3.Response;
 import util.HttpUtil;
 
 public class HomeActivity extends Fragment {
-    View view;
-    MainActivity mainActivityH;
-    ImageView bingPicImg;
+    private View view;
+    private MainActivity mainActivityH;
+
 
 
 
@@ -41,7 +42,12 @@ public class HomeActivity extends Fragment {
 
         view = inflater.inflate(R.layout.activity_home, container, false);
         mainActivityH = (MainActivity) getActivity();
-        bingPicImg = view.findViewById(R.id.bing_pic_img);
+
+
+
+
+
+
 
 
         return view;

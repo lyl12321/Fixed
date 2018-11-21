@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,11 +39,15 @@ import android.widget.ProgressBar;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
 import com.dx.dxloadingbutton.lib.LoadingButton;
 
 
 import org.angmarch.views.NiceSpinner;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -59,22 +64,24 @@ public class AppointmentActivity extends Fragment {
 
     private EditText name;
     private EditText phone;
-    private NiceSpinner buildNumber;
-    private NiceSpinner floorNumber;
-    private NiceSpinner sNumber;
+//    private NiceSpinner buildNumber;
+//    private NiceSpinner floorNumber;
+//    private NiceSpinner sNumber;
     private Button chooseTime;
     private Calendar date;
     private Calendar tDate;
-    private int aYear;
-    private int aMonth;
-    private int aDay;
-    private int aHour;
-    private int aMinute;
+//    private int aYear;
+//    private int aMonth;
+//    private int aDay;
+//    private int aHour;
+//    private int aMinute;
     private CheckBox[] checkBoxes;
+    private Button choosePosition;
 
     private LoadingButton buttonCommit;
     MainActivity activity;
     ProgressBar progressBar;
+    private String bResult;
 
 
 
@@ -87,9 +94,9 @@ public class AppointmentActivity extends Fragment {
 
         name = view.findViewById(R.id.editText_Name);
         phone = view.findViewById(R.id.editText_Phone);
-        buildNumber = view.findViewById(R.id.niceSpinner_BuildNumber);
-        floorNumber = view.findViewById(R.id.niceSpinner_FloorNumber);
-        sNumber = view.findViewById(R.id.niceSpinner_SNumber);
+//        buildNumber = view.findViewById(R.id.niceSpinner_BuildNumber);
+//        floorNumber = view.findViewById(R.id.niceSpinner_FloorNumber);
+//        sNumber = view.findViewById(R.id.niceSpinner_SNumber);
         chooseTime = view.findViewById(R.id.button_Time);
         date = Calendar.getInstance();
         tDate = Calendar.getInstance();
@@ -101,7 +108,7 @@ public class AppointmentActivity extends Fragment {
         checkBoxes[4] = view.findViewById(R.id.checkBox5);
         buttonCommit = view.findViewById(R.id.button_Commit);
         activity = (MainActivity) getActivity();
-
+        choosePosition = view.findViewById(R.id.button_position);
 
         progressBar = view.findViewById(R.id.spin_kit);
 
@@ -111,8 +118,13 @@ public class AppointmentActivity extends Fragment {
 
 
         phone.setInputType(InputType.TYPE_CLASS_NUMBER);
-        buildNumber.attachDataSource(new LinkedList<>(Arrays.asList("1北","1南","2北","2南","3北","3南","5北","5南")));
-        initSpinner();
+//        buildNumber.attachDataSource(new LinkedList<>(Arrays.asList("1北","1南","2北","2南","3北","3南","5北","5南")));
+//        initSpinner();
+        final int maxS = 20;
+        String[] bString = new String[]{"1北","1南","2北","2南","3北","3南","5北","5南"};
+        String[] fString = new String[6];
+        String[] sString = new String[maxS];
+
         chooseTime.setOnClickListener(V -> {
 
             chooseTimeInit();
@@ -120,8 +132,8 @@ public class AppointmentActivity extends Fragment {
         });
         buttonCommit.setOnClickListener(V -> {
             buttonCommit.reset();
-            Calendar tempDate = Calendar.getInstance();
-            tempDate.set(aYear,aMonth,aDay,aHour,aMinute);
+//            Calendar tempDate = Calendar.getInstance();
+//            tempDate.set(aYear,aMonth,aDay,aHour,aMinute);
 
 ////           if (ContextCompat.checkSelfPermission(activity,Manifest.permission.SEND_SMS)
 ////                   != PackageManager.PERMISSION_GRANTED) {
@@ -146,8 +158,8 @@ public class AppointmentActivity extends Fragment {
                     && !PhoneNumberMatch.isMobileNO(phone.getText().toString())){
                 tempString += "--联系方式暂时只支持13位大陆电话" + "\n";
             }
-            if (!date.before(tempDate)){
-                tempString += "--预约时间要大于现在的时间"+"\n";
+            if (!(date.before(tDate))){
+                tempString += "--预约时间不能小于现在时间"+"\n";
             }
 
 
@@ -214,6 +226,48 @@ public class AppointmentActivity extends Fragment {
 
 
         });
+        choosePosition.setOnClickListener(V -> {
+            bResult = "";
+            new AlertDialog.Builder(activity)
+                    .setTitle("选择楼号")
+                    .setItems(bString, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    bResult += bString[which];
+                    for (int i = 1; i <= 6; i++){
+                        fString[i-1] = i+"楼";
+                    }
+
+                    new AlertDialog.Builder(activity)
+                            .setTitle("选择楼层")
+                            .setItems(fString, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+//                                    bResult += fString[which];
+                                    for (int j = 1; j <= maxS; j++){
+                                        if (j < 10){
+                                            sString[j-1] = (which+1)+"0"+j;
+                                        } else {
+                                            sString[j-1] = (which+1)+""+j;
+                                        }
+                                    }
+                                    new AlertDialog.Builder(activity)
+                                            .setItems(sString, new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    bResult += sString[which];
+                                                    choosePosition.setText(bResult);
+                                                }
+                                            })
+                                            .setTitle("选择宿舍号")
+                                            .show();
+                                }
+                            }).show();
+                }
+            })
+                    .show();
+        });
 
         return view;
     }
@@ -247,83 +301,101 @@ public class AppointmentActivity extends Fragment {
 
         return "姓名:"+name.getText()+'\n'+
                 "电话:"+phone.getText()+'\n'+
-                "地址:"+buildNumber.getText()+sNumber.getText()+'\n'+
+                "地址:"+choosePosition.getText()+'\n'+
                 "预约时间:"+chooseTime.getText()+'\n'+
                 "出现的问题:"+question;
     }
 
-    private void initSpinner(){
-        LinkedList<String> fAdapter = new LinkedList<>();
-        LinkedList<String> sAdapter = new LinkedList<>();
-        int maxSNumber = 20;
-        for (int i = 1; i <= 6; i++){
-            fAdapter.add(i+"层");
-        }
-        floorNumber.attachDataSource(fAdapter);
-        for (int j = 1; j <= maxSNumber; j++){
-            if (j < 10){
-                sAdapter.add(1+"0"+j);
-            } else {
-                sAdapter.add("1"+j);
-            }
-        }
-        sNumber.attachDataSource(sAdapter);
-        floorNumber.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                sAdapter.clear();
 
 
-                for (int j = 1; j <= maxSNumber; j++){
-                    if (j < 10){
-                        sAdapter.add((position+1)+"0"+j);
-                    } else {
-                        sAdapter.add((position+1)+""+j+"");
-                    }
-                }
-                sNumber.attachDataSource(sAdapter);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
-    }
+//    private void initSpinner(){
+//        LinkedList<String> fAdapter = new LinkedList<>();
+//        LinkedList<String> sAdapter = new LinkedList<>();
+//        int maxSNumber = 20;
+//        for (int i = 1; i <= 6; i++){
+//            fAdapter.add(i+"层");
+//        }
+//        floorNumber.attachDataSource(fAdapter);
+//        for (int j = 1; j <= maxSNumber; j++){
+//            if (j < 10){
+//                sAdapter.add(1+"0"+j);
+//            } else {
+//                sAdapter.add("1"+j);
+//            }
+//        }
+//        sNumber.attachDataSource(sAdapter);
+//        floorNumber.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                sAdapter.clear();
+//
+//
+//                for (int j = 1; j <= maxSNumber; j++){
+//                    if (j < 10){
+//                        sAdapter.add((position+1)+"0"+j);
+//                    } else {
+//                        sAdapter.add((position+1)+""+j+"");
+//                    }
+//                }
+//                sNumber.attachDataSource(sAdapter);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//
+//
+//    }
 
     private void chooseTimeInit(){
 
-//        Calendar startDate = Calendar.getInstance();
-//        Calendar endDate = Calendar.getInstance();
-//
-//
-//        startDate.set(selectedDate.get(Calendar.YEAR),selectedDate.get(Calendar.MONTH),selectedDate.get(Calendar.DATE));
-//        endDate.set(selectedDate.get(Calendar.YEAR),selectedDate.get(Calendar.MONTH),selectedDate.get(Calendar.DATE)+7);
+        Calendar startDate = Calendar.getInstance();
+        Calendar endDate = Calendar.getInstance();
 
 
+        startDate.set(date.get(Calendar.YEAR),date.get(Calendar.MONTH),date.get(Calendar.DATE),date.get(Calendar.HOUR_OF_DAY),date.get(Calendar.MINUTE)+10);
+        endDate.set(date.get(Calendar.YEAR),date.get(Calendar.MONTH),date.get(Calendar.DATE)+7);
 
-        new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+        TimePickerView pvTime = new TimePickerBuilder(activity, new OnTimeSelectListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        tDate.set(year,month,dayOfMonth,hourOfDay,minute);
-                        aYear = year;
-                        aMonth = month;
-                        aDay = dayOfMonth;
-                        aHour = hourOfDay;
-                        aMinute = minute;
-                        chooseTime.setText(year+"年"+(month+1)+"月"+dayOfMonth+"日"+"  "+hourOfDay+":"+minute);
-                    }
-                },date.get(Calendar.HOUR_OF_DAY),date.get(Calendar.MINUTE),true).show();
-
-//                Toast.makeText(getContext(),"changed",Toast.LENGTH_SHORT).show();
+            public void onTimeSelect(Date date, View v) {
+                tDate.setTime(date);
+                chooseTime.setText(getTime(date));
             }
-        },date.get(Calendar.YEAR),date.get(Calendar.MONTH),date.get(Calendar.DAY_OF_MONTH)).show();
+        })
+
+                .setType(new boolean[]{false, false, true, true, true, false})
+                .setLabel("年","月","日","点","分","秒")
+                .isDialog(true)
+                .setRangDate(startDate,endDate)
+                .build();
+
+        pvTime.show();
+
+
+
+//        new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//
+//                new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+//                    @Override
+//                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//                        tDate.set(year,month,dayOfMonth,hourOfDay,minute);
+//                        aYear = year;
+//                        aMonth = month;
+//                        aDay = dayOfMonth;
+//                        aHour = hourOfDay;
+//                        aMinute = minute;
+//                        chooseTime.setText(year+"年"+(month+1)+"月"+dayOfMonth+"日"+"  "+hourOfDay+":"+minute);
+//                    }
+//                },date.get(Calendar.HOUR_OF_DAY),date.get(Calendar.MINUTE),true).show();
+//
+////                Toast.makeText(getContext(),"changed",Toast.LENGTH_SHORT).show();
+//            }
+//        },date.get(Calendar.YEAR),date.get(Calendar.MONTH),date.get(Calendar.DAY_OF_MONTH)).show();
 
 
     }
@@ -422,7 +494,11 @@ public class AppointmentActivity extends Fragment {
 
 
 
-
+    private String getTime(Date date) {//可根据需要自行截取数据显示
+//        Log.d("getTime()", "choice date millis: " + date.getTime());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH点mm分");
+        return format.format(date);
+    }
 
     //    @Override
 //    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {

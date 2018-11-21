@@ -28,6 +28,7 @@ import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
 import android.view.MenuItem;
 
+import android.view.View;
 import android.widget.Toast;
 
 
@@ -47,6 +48,7 @@ public class MainActivity extends BaseActivity {
     Fragment aboutActivity = new AboutActivity();
     AppointmentActivity appointmentActivityB;
     private Toolbar toolbar;
+    HomeActivity homeF = new HomeActivity();
 
 
     private static final String KEY_MIUI_VERSION_CODE = "ro.miui.ui.version.code";
@@ -91,22 +93,10 @@ public class MainActivity extends BaseActivity {
                                 requestPermission();
                             }
                         })
-//                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//
-//                        }
-//                    })
+
                         .setCancelable(false)
                         .show();
             }
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            View decorView = getWindow().getDecorView();
-//            decorView.setSystemUiVisibility(
-//                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-//            getWindow().setStatusBarColor(Color.TRANSPARENT);
-//        }
 
 
     }
@@ -229,89 +219,90 @@ public class MainActivity extends BaseActivity {
 
 
 
-    public void sendSMS(String phoneNumber,String message){
-
-
-
-
-        if (ContextCompat.checkSelfPermission(this,Manifest.permission.SEND_SMS)
-                != PackageManager.PERMISSION_GRANTED){
-            Toast.makeText(this,"无法获取到短信权限，需要手动点发送",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:"+phoneNumber));
-            intent.putExtra("sms_body", message);
-
-            startActivity(intent);
-
-        } else {
-            //处理返回的发送状态
-            String SENT_SMS_ACTION = "SENT_SMS_ACTION";
-            Intent sentIntent = new Intent(SENT_SMS_ACTION);
-            PendingIntent sendIntent= PendingIntent.getBroadcast(this, 0, sentIntent,
-                    0);
-// register the Broadcast Receivers
-            this.registerReceiver(new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context _context, Intent _intent) {
-                    switch (getResultCode()) {
-                        case Activity.RESULT_OK:
-
-                            showToast(MainActivity.this,"成功向技术人员提交消息！正在检测是否接收，不要关闭应用");
-                            break;
-                        case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-                        case SmsManager.RESULT_ERROR_RADIO_OFF:
-                        case SmsManager.RESULT_ERROR_NULL_PDU:
-
-//                            buttonCommit.loadingFailed();
-
-                            new android.support.v7.app.AlertDialog.Builder(MainActivity.this)
-                                    .setMessage("我也不知道啥情况，反正出错了，检查下吧")
-                                    .setNegativeButton("好的", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-
-                                        }
-                                    })
-                                    .show();
-
-//                            Toast.makeText(MainActivity.this,"",Toast.LENGTH_LONG).show();
-                            break;
-                    }
-                }
-            }, new IntentFilter(SENT_SMS_ACTION));
-            //处理返回的接收状态
-            String DELIVERED_SMS_ACTION = "DELIVERED_SMS_ACTION";
-// create the deilverIntent parameter
-            Intent deliverIntent = new Intent(DELIVERED_SMS_ACTION);
-            PendingIntent backIntent= PendingIntent.getBroadcast(this, 0,
-                    deliverIntent, 0);
-            this.registerReceiver(new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context _context, Intent _intent) {
-
-//                    buttonCommit.loadingSuccessful();
-
-
-//                    Toast.makeText(MainActivity.this,
-//                            "", Toast.LENGTH_SHORT)
+//    public void sendSMS(String phoneNumber,String message){
+//
+//
+//
+//
+//        if (ContextCompat.checkSelfPermission(this,Manifest.permission.SEND_SMS)
+//                != PackageManager.PERMISSION_GRANTED){
+//
+//            Toast.makeText(this,"无法获取到短信权限，需要手动点发送",Toast.LENGTH_LONG).show();
+//            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:"+phoneNumber));
+//            intent.putExtra("sms_body", message);
+//
+//            startActivity(intent);
+//
+//        } else {
+//            //处理返回的发送状态
+//            String SENT_SMS_ACTION = "SENT_SMS_ACTION";
+//            Intent sentIntent = new Intent(SENT_SMS_ACTION);
+//            PendingIntent sendIntent= PendingIntent.getBroadcast(this, 0, sentIntent,
+//                    0);
+//// register the Broadcast Receivers
+//            this.registerReceiver(new BroadcastReceiver() {
+//                @Override
+//                public void onReceive(Context _context, Intent _intent) {
+//                    switch (getResultCode()) {
+//                        case Activity.RESULT_OK:
+//
+//                            showToast(MainActivity.this,"成功向技术人员提交消息！正在检测是否接收，不要关闭应用");
+//                            break;
+//                        case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+//                        case SmsManager.RESULT_ERROR_RADIO_OFF:
+//                        case SmsManager.RESULT_ERROR_NULL_PDU:
+//
+////                            buttonCommit.loadingFailed();
+//
+//                            new android.support.v7.app.AlertDialog.Builder(MainActivity.this)
+//                                    .setMessage("我也不知道啥情况，反正出错了，检查下吧")
+//                                    .setNegativeButton("好的", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//
+//                                        }
+//                                    })
+//                                    .show();
+//
+////                            Toast.makeText(MainActivity.this,"",Toast.LENGTH_LONG).show();
+//                            break;
+//                    }
+//                }
+//            }, new IntentFilter(SENT_SMS_ACTION));
+//            //处理返回的接收状态
+//            String DELIVERED_SMS_ACTION = "DELIVERED_SMS_ACTION";
+//// create the deilverIntent parameter
+//            Intent deliverIntent = new Intent(DELIVERED_SMS_ACTION);
+//            PendingIntent backIntent= PendingIntent.getBroadcast(this, 0,
+//                    deliverIntent, 0);
+//            this.registerReceiver(new BroadcastReceiver() {
+//                @Override
+//                public void onReceive(Context _context, Intent _intent) {
+//
+////                    buttonCommit.loadingSuccessful();
+//
+//
+////                    Toast.makeText(MainActivity.this,
+////                            "", Toast.LENGTH_SHORT)
+////                            .show();
+//
+//                    new android.support.v7.app.AlertDialog.Builder(MainActivity.this)
+//                            .setMessage("技术人员会在两小时内联系您，请耐性等候")
+//                            .setNegativeButton("好的", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//
+//                                }
+//                            })
 //                            .show();
-
-                    new android.support.v7.app.AlertDialog.Builder(MainActivity.this)
-                            .setMessage("技术人员会在两小时内联系您，请耐性等候")
-                            .setNegativeButton("好的", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            })
-                            .show();
-
-                }
-            }, new IntentFilter(DELIVERED_SMS_ACTION));
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber,null,message,sendIntent,backIntent);
-        }
-
-    }
+//
+//                }
+//            }, new IntentFilter(DELIVERED_SMS_ACTION));
+//            SmsManager smsManager = SmsManager.getDefault();
+//            smsManager.sendTextMessage(phoneNumber,null,message,sendIntent,backIntent);
+//        }
+//
+//    }
 
 
 
