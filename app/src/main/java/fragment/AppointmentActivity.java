@@ -56,6 +56,7 @@ import java.util.List;
 import java.util.Objects;
 
 import context.MyApplication;
+import es.dmoral.toasty.Toasty;
 import fixed.MainActivity;
 import liyulong.com.fixed.R;
 import util.PhoneNumberMatch;
@@ -111,7 +112,6 @@ public class AppointmentActivity extends Fragment {
         activity = (MainActivity) getActivity();
         choosePosition = view.findViewById(R.id.button_position);
         bResult = "";
-        progressBar = view.findViewById(R.id.spin_kit);
 
 //        progressBar.setIndeterminateDrawable(new DoubleBounce());
 
@@ -429,7 +429,7 @@ public class AppointmentActivity extends Fragment {
         if (ContextCompat.checkSelfPermission(activity,Manifest.permission.SEND_SMS)
                 != PackageManager.PERMISSION_GRANTED){
 
-            Toast.makeText(activity,"无法获取到短信权限，需要手动点发送",Toast.LENGTH_LONG).show();
+            Toasty.error(activity,"无法获取到短信权限，需要手动点发送",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:"+phoneNumber));
             intent.putExtra("sms_body", message);
             buttonCommit.loadingSuccessful();
@@ -449,11 +449,14 @@ public class AppointmentActivity extends Fragment {
                     switch (getResultCode()) {
                         case Activity.RESULT_OK:
 
-                            activity.showToast(getContext(),"成功向技术人员提交消息！正在检测是否接收，不要关闭应用");
+//                            activity.showToast(getContext(),"成功向技术人员提交消息！正在检测是否接收，不要关闭应用");
+                            Toasty.success(getContext(),"成功向技术人员提交消息！正在检测是否接收，不要关闭应用",Toast.LENGTH_LONG).show();
+                            buttonCommit.loadingSuccessful();
                             break;
                         case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
                         case SmsManager.RESULT_ERROR_RADIO_OFF:
                         case SmsManager.RESULT_ERROR_NULL_PDU:
+                        default:
 //                            buttonCommit.loadingFailed();
                             new android.support.v7.app.AlertDialog.Builder(getContext())
                                     .setTitle("出错啦")
@@ -502,7 +505,7 @@ public class AppointmentActivity extends Fragment {
                             .setNegativeButton("好的", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    buttonCommit.loadingSuccessful();
+
                                 }
                             })
                             .show();

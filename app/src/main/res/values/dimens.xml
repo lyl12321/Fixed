@@ -3,4 +3,11 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="layout_marginstart">12dp</dimen>
+    <dimen name="layout_margintop">8dp</dimen>
+    <dimen name="layout_marginend">12dp</dimen>
+    <dimen name="layout_marginBottom">24dp</dimen>
+    <dimen name="cardcornerradius">12dp</dimen>
+    <dimen name="cardelevation">12dp</dimen>
+
 </resources>

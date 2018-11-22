@@ -18,7 +18,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="9"
         >
 
         <LinearLayout
@@ -27,319 +27,323 @@
             android:orientation="vertical"
             >
 
-
-
-
-            <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
-        >
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_account_circle_black_24dp"
-            android:layout_weight="1"
-            />
-
-
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_weight="9"
-            android:layout_height="wrap_content"
-            android:paddingLeft="12dp">
-            <EditText
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="姓名"
-                android:id="@+id/editText_Name"
-                android:maxLines="1"
-                android:maxLength="8"
-                android:singleLine="true"/>
+                android:layout_height="wrap_content">
 
-
-        </android.support.design.widget.TextInputLayout>
-
-
-    </LinearLayout>
-
-
-            <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
-        >
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_local_phone_black_24dp"
-            android:layout_weight="1"
-            />
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_weight="9"
-            android:layout_height="match_parent"
-            android:paddingLeft="12dp">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="联系电话"
-                android:id="@+id/editText_Phone"
-                android:inputType="number"
-                android:maxLines="1"
-                android:maxLength="11"
-                android:singleLine="true"/>
-
-
-        </android.support.design.widget.TextInputLayout>
-
-
-    </LinearLayout>
-
-            <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
-        >
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_location_on_black_24dp"
-            android:layout_weight="1"
-            />
-        <!--<android.support.design.button.MaterialButton-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_weight="9"-->
-        <!--android:backgroundTint="@color/appBackColor"-->
-        <!--android:outlineProvider="none"-->
-        <!--android:textColor="@color/blue"-->
-        <!--android:text="点我选择地址"-->
-        <!--android:textSize="18dp"-->
-        <!--android:id="@+id/button_Address"-->
-
-        <!--&lt;!&ndash;/>&ndash;&gt;-->
-        <!--<LinearLayout-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="9"-->
-            <!--android:paddingLeft="12dp">-->
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:text="选择位置"-->
-                <!--android:gravity="center"/>-->
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="9"
-                android:backgroundTintMode="screen"
-                android:outlineProvider="none"
-                android:gravity="center"
-                android:textColor="@color/blue"
-                android:text="点我选择位置"
-                android:textSize="18dp"
-                android:id="@+id/button_position"
-
-                />
-
-            <!--<org.angmarch.views.NiceSpinner-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:text="楼号"-->
-                <!--android:id="@+id/niceSpinner_BuildNumber"-->
-                <!--/>-->
-            <!--<org.angmarch.views.NiceSpinner-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:text="楼层"-->
-                <!--android:id="@+id/niceSpinner_FloorNumber"-->
-                <!--/>-->
-            <!--<org.angmarch.views.NiceSpinner-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:text="宿舍号"-->
-                <!--android:id="@+id/niceSpinner_SNumber"-->
-                <!--/>-->
-
-
-
-
-
-
-        <!--</LinearLayout>-->
-
-
-
-
-
-    </LinearLayout>
-
-
-            <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
-        >
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_access_time_black_24dp"
-            android:layout_weight="1"
-            />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="9"
-            android:backgroundTintMode="screen"
-            android:outlineProvider="none"
-            android:textColor="@color/blue"
-            android:text="点我选择时间"
-            android:textSize="18dp"
-            android:id="@+id/button_Time"
-
-            />
-
-
-
-
-    </LinearLayout>
-
-
-
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <!--<android.support.design.widget.TextInputLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="5"-->
-        <!--android:padding="12dp">-->
-
-        <!--<EditText-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:scrollbars="vertical"-->
-        <!--/>-->
-        <!--</android.support.design.widget.TextInputLayout>-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:padding="12dp"
-
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="26dp"
-                    android:textColor="#F67280"
-                    android:text="选择你遇到的问题"/>
-            </LinearLayout>
+                    android:layout_marginStart="@dimen/layout_marginstart"
+                    android:layout_marginTop="@dimen/layout_margintop"
+                    android:layout_marginEnd="@dimen/layout_marginend"
+                    android:layout_marginBottom="@dimen/layout_marginBottom"
+                    app:cardCornerRadius="@dimen/cardcornerradius"
+                    app:cardElevation="@dimen/cardelevation"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            android:padding="12dp"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_account_circle" />
+
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="9"
+                                android:paddingLeft="12dp">
+
+                                <EditText
+                                    android:id="@+id/editText_Name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="姓名"
+                                    android:maxLength="8"
+                                    android:maxLines="1"
+                                    android:singleLine="true" />
+
+
+                            </android.support.design.widget.TextInputLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="12dp">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_phone_06" />
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="9"
+                                android:paddingLeft="12dp">
+
+                                <EditText
+                                    android:id="@+id/editText_Phone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="联系电话"
+                                    android:inputType="number"
+                                    android:maxLength="11"
+                                    android:maxLines="1"
+                                    android:singleLine="true" />
+
+
+                            </android.support.design.widget.TextInputLayout>
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
 
 
 
+                </android.support.v7.widget.CardView>
 
 
+            </android.support.constraint.ConstraintLayout>
 
 
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="24dp"
-                >
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="蓝屏"
-                    android:textSize="18dp"
-                    android:padding="8dp"
-                    android:id="@+id/checkBox1"/>
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:text="运行卡顿"
-                    android:textSize="18dp"
-                    android:id="@+id/checkBox2"/>
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:text="软件报错"
-                    android:textSize="18dp"
-                    android:id="@+id/checkBox3"/>
-            </LinearLayout>
+                android:layout_height="wrap_content">
 
-            <LinearLayout
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/layout_marginstart"
+                    android:layout_marginTop="@dimen/layout_margintop"
+                    android:layout_marginEnd="@dimen/layout_marginend"
+                    android:layout_marginBottom="@dimen/layout_marginBottom"
+                    app:cardCornerRadius="@dimen/cardcornerradius"
+                    app:cardElevation="@dimen/cardelevation"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="12dp"
+                            >
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_location"
+                                android:layout_weight="1"
+                                />
+
+                            <Button
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="9"
+                                android:backgroundTintMode="screen"
+                                android:outlineProvider="none"
+                                android:gravity="center"
+                                android:textColor="@color/blue"
+                                android:text="点我选择位置"
+                                android:textSize="18dp"
+                                android:id="@+id/button_position"
+                                />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="12dp"
+                            >
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_access_time_black_24dp"
+                                android:layout_weight="1"
+                                />
+
+                            <Button
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="9"
+                                android:backgroundTintMode="screen"
+                                android:outlineProvider="none"
+                                android:textColor="@color/blue"
+                                android:text="点我选择时间"
+                                android:textSize="18dp"
+                                android:id="@+id/button_Time"
+                                />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+                </android.support.v7.widget.CardView>
+
+
+            </android.support.constraint.ConstraintLayout>
+
+
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-                <CheckBox
-                    android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="开不了机"
-                    android:textSize="18dp"
-                    android:padding="8dp"
-                    android:id="@+id/checkBox4"/>
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:text="其它迷之问题"
-                    android:textSize="18dp"
-                    android:id="@+id/checkBox5"/>
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="注：以上项目基础费为20人民币"/>
+                    android:layout_marginStart="@dimen/layout_marginstart"
+                    android:layout_marginTop="@dimen/layout_margintop"
+                    android:layout_marginEnd="@dimen/layout_marginend"
+                    android:layout_marginBottom="@dimen/layout_marginBottom"
+                    app:cardCornerRadius="@dimen/cardcornerradius"
+                    app:cardElevation="@dimen/cardelevation"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="选择你遇到的问题"
+                                    android:textColor="#F67280"
+                                    android:textSize="26dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="24dp">
+
+                                <CheckBox
+                                    android:id="@+id/checkBox1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="8dp"
+                                    android:text="蓝屏"
+                                    android:textSize="18dp" />
+
+                                <CheckBox
+                                    android:id="@+id/checkBox2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="8dp"
+                                    android:text="运行卡顿"
+                                    android:textSize="18dp" />
+
+                                <CheckBox
+                                    android:id="@+id/checkBox3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="8dp"
+                                    android:text="软件报错"
+                                    android:textSize="18dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <CheckBox
+                                    android:id="@+id/checkBox4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="8dp"
+                                    android:text="开不了机"
+                                    android:textSize="18dp" />
+
+                                <CheckBox
+                                    android:id="@+id/checkBox5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="8dp"
+                                    android:text="其它迷之问题"
+                                    android:textSize="18dp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="注：以上项目基础费为20人民币" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
 
 
 
+            </android.support.constraint.ConstraintLayout>
 
-
-        <!--<Button-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-
-        <!--android:backgroundTintMode="screen"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:padding="12dp"-->
-        <!--android:text="提交"-->
-        <!--android:textColor="@color/colorAccent"-->
-        <!--android:id="@+id/button_Commit"/>-->
-
-    </LinearLayout>
 
 
         </LinearLayout>
 
     </ScrollView>
+
+
+
+
+
+
+
 
 
     <LinearLayout
@@ -356,21 +360,12 @@
             app:lb_cornerRadius="56"
             app:lb_btnColor="@color/blue"
             app:lb_btnText="提交"
+
             />
 
 
 
     </LinearLayout>
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import es.dmoral.toasty.Toasty;
 import liyulong.com.fixed.R;
 import fragment.*;
 import okhttp3.Call;
@@ -171,14 +172,16 @@ public class MainActivity extends BaseActivity {
 
                 // 用户取消了权限弹窗
                 if (grantResults.length == 0) {
-                    showToast(this, "无法获取所需的权限, 请到系统设置开启");
+//                    showToast(this, "无法获取所需的权限, 请到系统设置开启");
+                    Toasty.error(this,"无法获取所需的权限, 请到系统设置开启",Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 // 用户拒绝了某些权限
                 for (int x : grantResults) {
                     if (x == PackageManager.PERMISSION_DENIED) {
-                        showToast(this, "无法获取所需的权限, 请到系统设置开启");
+//                        showToast(this, "无法获取所需的权限, 请到系统设置开启");
+                        Toasty.error(this,"无法获取所需的权限, 请到系统设置开启",Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
@@ -358,9 +361,9 @@ public class MainActivity extends BaseActivity {
         transaction.replace(R.id.frameLyout_main,fragment);
         transaction.commit();
     }
-    public static void showToast(Context context, String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
-    }
+//    public static void showToast(Context context, String msg) {
+//        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+//    }
 //    public static void showAlert(Context ctx, String info) {
 //        showAlert(ctx, info, null);
 //    }

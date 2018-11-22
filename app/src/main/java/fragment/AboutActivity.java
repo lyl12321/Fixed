@@ -107,7 +107,7 @@ public class AboutActivity extends Fragment {
                 .addItem(qqElement)
                 .addEmail("look.liyulong@qq.com","邮箱")
                 .addWebsite("https://www.llyyll123.xyz","博客")
-                .addTwitter("medyo80","推特")
+                .addTwitter("lylong_123","推特")
                 .addGitHub("lyl12321","github首页")
                 .addInstagram("look.liyulong","Instagram")
                 .addGroup("软件信息")
