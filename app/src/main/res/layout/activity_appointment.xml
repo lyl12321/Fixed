@@ -267,13 +267,13 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:paddingTop="24dp">
+                                android:paddingTop="20dp">
 
                                 <CheckBox
                                     android:id="@+id/checkBox1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:padding="8dp"
+                                    android:padding="@dimen/checkboxpadding"
                                     android:text="蓝屏"
                                     android:textSize="18dp" />
 
@@ -281,7 +281,7 @@
                                     android:id="@+id/checkBox2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:padding="8dp"
+                                    android:padding="@dimen/checkboxpadding"
                                     android:text="运行卡顿"
                                     android:textSize="18dp" />
 
@@ -289,7 +289,7 @@
                                     android:id="@+id/checkBox3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:padding="8dp"
+                                    android:padding="@dimen/checkboxpadding"
                                     android:text="软件报错"
                                     android:textSize="18dp" />
                             </LinearLayout>
@@ -302,7 +302,7 @@
                                     android:id="@+id/checkBox4"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:padding="8dp"
+                                    android:padding="@dimen/checkboxpadding"
                                     android:text="开不了机"
                                     android:textSize="18dp" />
 
@@ -310,7 +310,7 @@
                                     android:id="@+id/checkBox5"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:padding="8dp"
+                                    android:padding="@dimen/checkboxpadding"
                                     android:text="其它迷之问题"
                                     android:textSize="18dp" />
                             </LinearLayout>

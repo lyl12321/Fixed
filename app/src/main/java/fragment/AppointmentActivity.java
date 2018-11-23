@@ -30,6 +30,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -244,6 +245,10 @@ public class AppointmentActivity extends Fragment {
 
         });
         choosePosition.setOnClickListener(V -> {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm.isActive()){
+                imm.hideSoftInputFromWindow(phone.getWindowToken(), 0);
+            }
             bResult = "";
             new AlertDialog.Builder(activity)
                     .setTitle("选择楼号")
