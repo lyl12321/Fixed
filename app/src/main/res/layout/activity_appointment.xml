@@ -96,7 +96,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:src="@drawable/ic_phone_06" />
+                                android:src="@drawable/ic_local_phone_black_24dp" />
 
                             <android.support.design.widget.TextInputLayout
                                 android:layout_width="0dp"
@@ -163,7 +163,7 @@
                             <ImageView
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/ic_location"
+                                android:src="@drawable/ic_location_on_black_24dp"
                                 android:layout_weight="1"
                                 />
 
@@ -357,7 +357,7 @@
             android:id="@+id/button_Commit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:lb_cornerRadius="56"
+            app:lb_cornerRadius="60"
             app:lb_btnColor="@color/blue"
             app:lb_btnText="提交"
 
