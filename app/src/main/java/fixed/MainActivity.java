@@ -29,6 +29,8 @@ import android.telephony.SmsManager;
 import android.view.MenuItem;
 
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -50,6 +52,11 @@ public class MainActivity extends BaseActivity {
     AppointmentActivity appointmentActivityB;
     private Toolbar toolbar;
     HomeActivity homeF = new HomeActivity();
+
+//    private static Toast toast=null;
+//    private boolean isShowToast=false;
+//    private static TextView textView=null;
+//
 
 
     private static final String KEY_MIUI_VERSION_CODE = "ro.miui.ui.version.code";
@@ -87,6 +94,13 @@ public class MainActivity extends BaseActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
+//        //初始化Toast
+//        toast = new Toast(this);
+//        textView = new TextView(this);
+//        textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT));
+//        toast.setDuration(Toast.LENGTH_SHORT);
+//        toast.setView(textView);
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
@@ -361,6 +375,21 @@ public class MainActivity extends BaseActivity {
         transaction.replace(R.id.frameLyout_main,fragment);
         transaction.commit();
     }
+
+
+//    public void showToast(String str) {
+//        textView.setText(str);
+//        toast.show();
+//        isShowToast = true;
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        if(isShowToast == true){
+//            toast.cancel();
+//        }
+//    }
 //    public static void showToast(Context context, String msg) {
 //        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
 //    }

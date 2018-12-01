@@ -1,121 +1,140 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    >
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="开发人员"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="match_parent">
 
 
     <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="395dp"
+        android:layout_height="405dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
         android:scrollbars="none"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:orientation="horizontal">
 
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cardView3"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginStart="12dp"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="12dp"
-                app:cardCornerRadius="@dimen/cardcornerradius"
-                app:cardElevation="@dimen/cardelevation"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="1231231234134" />
-
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardView"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="@dimen/cardcornerradius"
-                app:cardElevation="@dimen/cardelevation"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="123123123413412334" />
-
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardView2"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="@dimen/cardcornerradius"
-                app:cardElevation="@dimen/cardelevation"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:src="@drawable/splash" />
+
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="1231231234134123413431434" />
+                        android:layout_gravity="center"
+                        android:text="多年捡垃圾经验，成就更好服务！" />
+
 
                 </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:src="@drawable/cloverkit" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="奋勇前行 不忘初心！"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+
 
             </android.support.v7.widget.CardView>
 
 
         </LinearLayout>
-
-
     </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="服务人员名单"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="兄贵你好，这app没有什么美感，凑合用用吧。下个版本再更新，点击下方预约按钮开始预约"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 

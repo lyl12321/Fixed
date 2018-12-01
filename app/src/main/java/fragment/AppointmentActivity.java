@@ -84,6 +84,10 @@ public class AppointmentActivity extends Fragment {
     MainActivity activity;
     ProgressBar progressBar;
     private String bResult;
+    private String phoneNumber;
+    private Button choosePeople;
+    private String[] servicePeople;
+    private int checkedItem = 0;
 
 
 
@@ -113,6 +117,10 @@ public class AppointmentActivity extends Fragment {
         activity = (MainActivity) getActivity();
         choosePosition = view.findViewById(R.id.button_position);
         bResult = "";
+        phoneNumber = "13365591802";
+        choosePeople = view.findViewById(R.id.button_People);
+        servicePeople = new String[]{"lqwq","cloverkit"};
+//        choosePosition.setText("点我选择位置");
 
 //        progressBar.setIndeterminateDrawable(new DoubleBounce());
 
@@ -186,7 +194,8 @@ public class AppointmentActivity extends Fragment {
 
 
                 new android.support.v7.app.AlertDialog.Builder(getContext())
-                        .setMessage("核对您的信息!" + "\n" +commit())
+                        .setTitle("核对您的信息!")
+                        .setMessage(commit())
                         .setNegativeButton("返回修改", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -199,7 +208,7 @@ public class AppointmentActivity extends Fragment {
 
                                 buttonCommit.startLoading();
 
-                                sendSMS("+8613365591802",commit());
+                                sendSMS("+86"+phoneNumber,commit());
 
 
                             }
@@ -227,8 +236,8 @@ public class AppointmentActivity extends Fragment {
             } else {
 
                 new android.support.v7.app.AlertDialog.Builder(getContext())
-                        .setMessage("您的输入有问题，请检查" +"\n"+
-                                tempString)
+                        .setTitle("您的输入有问题，请检查:")
+                        .setMessage(tempString)
                         .setNegativeButton("返回修改",null)
                         .show();
 
@@ -290,6 +299,29 @@ public class AppointmentActivity extends Fragment {
             })
                     .show();
         });
+        choosePeople.setOnClickListener(V -> {
+            new AlertDialog.Builder(activity)
+                    .setTitle("选择服务人员")
+                    .setSingleChoiceItems(servicePeople, checkedItem, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            checkedItem = which;
+                        }
+                    })
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            choosePeople.setText(servicePeople[checkedItem]);
+                            if (checkedItem == 0){
+                                phoneNumber = "13365591802";
+                            }else {
+                                phoneNumber = "13083001921";
+                            }
+                        }
+                    })
+                    .setCancelable(false)
+                    .show();
+        });
 
         return view;
     }
@@ -325,6 +357,7 @@ public class AppointmentActivity extends Fragment {
                 "电话:"+phone.getText()+'\n'+
                 "地址:"+choosePosition.getText()+'\n'+
                 "预约时间:"+chooseTime.getText()+'\n'+
+                "服务人员:"+choosePeople.getText()+'\n'+
                 "出现的问题:"+question;
     }
 
@@ -388,7 +421,7 @@ public class AppointmentActivity extends Fragment {
             }
         })
 
-                .setType(new boolean[]{false, false, true, true, true, false})
+                .setType(new boolean[]{false, true, true, true, true, false})
                 .setLabel("年","月","日","点","分","秒")
                 .isDialog(true)
                 .setRangDate(startDate,endDate)

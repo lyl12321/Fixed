@@ -56,6 +56,34 @@ public class HomeActivity extends Fragment {
 
 
 
+
+
+//    private void loadBingPic(){
+//        String requestBingPic = "http://guolin.tech/api/bing_pic";
+//        HttpUtil.sendOkHttpRequest(requestBingPic, new okhttp3.Callback() {
+//
+//            public void onResponse(Call call, Response response) throws IOException {
+//                final String bingPic = response.body().string();
+//                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(mainActivityH).edit();
+//                editor.putString("bing_pic", bingPic);
+//                editor.apply();
+////                mainActivityH.runOnUiThread(new Runnable() {
+////                    @Override
+////                    public void run() {
+////                        Glide.with(getContext()).load(bingPic).into(bingPicImg);
+////                    }
+////                });
+//            }
+//
+//
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//        });
+//
+//    }
+
+
 //    @Override
 //    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
 //        return MoveAnimation.create(MoveAnimation.DOWN, enter, 500);

@@ -5,4 +5,5 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_appointment">预约</string>
     <string name="title_about">关于</string>
+    <string name="home_page">感谢您选择我的服务，请点击下方预约按钮进行预约</string>
 </resources>
