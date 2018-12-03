@@ -34,6 +34,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import org.lzh.framework.updatepluginlib.UpdateBuilder;
+
 import java.io.IOException;
 
 import es.dmoral.toasty.Toasty;
@@ -53,16 +55,15 @@ public class MainActivity extends BaseActivity {
     private Toolbar toolbar;
     HomeActivity homeF = new HomeActivity();
 
+
 //    private static Toast toast=null;
 //    private boolean isShowToast=false;
 //    private static TextView textView=null;
 //
 
-
     private static final String KEY_MIUI_VERSION_CODE = "ro.miui.ui.version.code";
     private static final String KEY_MIUI_VERSION_NAME = "ro.miui.ui.version.name";
     private static final String KEY_MIUI_INTERNAL_STORAGE = "ro.miui.internal.storage";
-
 
     @Override
     public void onBackPressed() {
@@ -103,7 +104,8 @@ public class MainActivity extends BaseActivity {
 //        toast.setView(textView);
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
                     != PackageManager.PERMISSION_GRANTED
                     || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED
@@ -121,7 +123,13 @@ public class MainActivity extends BaseActivity {
 
                         .setCancelable(false)
                         .show();
-            }
+            } else {
+
+            UpdateBuilder.create().check();
+
+        }
+
+
 
 
     }

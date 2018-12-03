@@ -3,6 +3,7 @@ package fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+
+import org.lzh.framework.updatepluginlib.UpdateBuilder;
 
 import fixed.MainActivity;
 import liyulong.com.fixed.R;
@@ -31,9 +34,16 @@ public class AboutActivity extends Fragment {
 
         clickCount = 0;
 
+
         Element versionElement = new Element();
         versionElement.setTitle("软件版本:"+getVersion.getLocalVersionName(activity));
         versionElement.setIconDrawable(R.drawable.ic_info_circle);
+        versionElement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateBuilder.create().check();
+            }
+        });
 //        versionElement.setOnClickListener(new View.OnClickListener() {
 //            String string = "";
 //            @Override

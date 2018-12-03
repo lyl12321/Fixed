@@ -119,7 +119,7 @@ public class AppointmentActivity extends Fragment {
         bResult = "";
         phoneNumber = "13365591802";
         choosePeople = view.findViewById(R.id.button_People);
-        servicePeople = new String[]{"lqwq","cloverkit"};
+        servicePeople = new String[]{"lqwq    (李钰龙)","cloverkit    (周广来)"};
 //        choosePosition.setText("点我选择位置");
 
 //        progressBar.setIndeterminateDrawable(new DoubleBounce());
@@ -131,7 +131,7 @@ public class AppointmentActivity extends Fragment {
 //        buildNumber.attachDataSource(new LinkedList<>(Arrays.asList("1北","1南","2北","2南","3北","3南","5北","5南")));
 //        initSpinner();
         final int maxS = 20;
-        String[] bString = new String[]{"1北","1南","2北","2南","3北","3南","5北","5南"};
+        String[] bString = new String[]{"1北","1南","2北","2南","3北","3南","4北","4南","5北","5南"};
         String[] fString = new String[6];
         String[] sString = new String[maxS];
 
@@ -164,9 +164,8 @@ public class AppointmentActivity extends Fragment {
             if (name.getText().length() == 0){
                 tempString += "--姓名不能为空" + "\n" ;
             }
-            if (phone.getText().length() != 11
-                    && !PhoneNumberMatch.isMobileNO(phone.getText().toString())){
-                tempString += "--联系方式暂时只支持13位大陆电话" + "\n";
+            if (!PhoneNumberMatch.isMobileNO(phone.getText().toString())){
+                tempString += "--联系方式暂时只支持11位大陆电话" + "\n";
             }
 
             if (bResult == ""){
@@ -300,26 +299,25 @@ public class AppointmentActivity extends Fragment {
                     .show();
         });
         choosePeople.setOnClickListener(V -> {
+
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm.isActive()){
+                imm.hideSoftInputFromWindow(phone.getWindowToken(), 0);
+            }
+
             new AlertDialog.Builder(activity)
                     .setTitle("选择服务人员")
-                    .setSingleChoiceItems(servicePeople, checkedItem, new DialogInterface.OnClickListener() {
+                    .setItems(servicePeople, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            checkedItem = which;
-                        }
-                    })
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            choosePeople.setText(servicePeople[checkedItem]);
-                            if (checkedItem == 0){
+                            choosePeople.setText(servicePeople[which]);
+                            if (which == 0){
                                 phoneNumber = "13365591802";
                             }else {
                                 phoneNumber = "13083001921";
                             }
                         }
                     })
-                    .setCancelable(false)
                     .show();
         });
 
@@ -357,7 +355,7 @@ public class AppointmentActivity extends Fragment {
                 "电话:"+phone.getText()+'\n'+
                 "地址:"+choosePosition.getText()+'\n'+
                 "预约时间:"+chooseTime.getText()+'\n'+
-                "服务人员:"+choosePeople.getText()+'\n'+
+//                "服务人员:"+choosePeople.getText()+'\n'+
                 "出现的问题:"+question;
     }
 
@@ -456,26 +454,10 @@ public class AppointmentActivity extends Fragment {
     }
 
 
-
-
-
     public void sendSMS(String phoneNumber,String message){
 
-
-
-
-        if (ContextCompat.checkSelfPermission(activity,Manifest.permission.SEND_SMS)
-                != PackageManager.PERMISSION_GRANTED){
-
-            Toasty.error(activity,"无法获取到短信权限，需要手动点发送",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:"+phoneNumber));
-            intent.putExtra("sms_body", message);
-            buttonCommit.loadingSuccessful();
-            startActivity(intent);
-
-
-        } else {
-            //处理返回的发送状态
+        try{
+//            处理返回的发送状态
             String SENT_SMS_ACTION = "SENT_SMS_ACTION";
             Intent sentIntent = new Intent(SENT_SMS_ACTION);
             PendingIntent sendIntent= PendingIntent.getBroadcast(activity, 0, sentIntent,
@@ -494,7 +476,7 @@ public class AppointmentActivity extends Fragment {
                         case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
                         case SmsManager.RESULT_ERROR_RADIO_OFF:
                         case SmsManager.RESULT_ERROR_NULL_PDU:
-                        default:
+
 //                            buttonCommit.loadingFailed();
                             new android.support.v7.app.AlertDialog.Builder(getContext())
                                     .setTitle("出错啦")
@@ -520,6 +502,8 @@ public class AppointmentActivity extends Fragment {
                     }
                 }
             }, new IntentFilter(SENT_SMS_ACTION));
+
+
             //处理返回的接收状态
             String DELIVERED_SMS_ACTION = "DELIVERED_SMS_ACTION";
 // create the deilverIntent parameter
@@ -550,11 +534,124 @@ public class AppointmentActivity extends Fragment {
 
                 }
             }, new IntentFilter(DELIVERED_SMS_ACTION));
+
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber,null,message,sendIntent,backIntent);
+            List<String> divideContents = smsManager.divideMessage(message);
+            for (String text : divideContents) {
+                smsManager.sendTextMessage(phoneNumber, null, text, sendIntent, backIntent);
+            }
+//            smsManager.sendTextMessage(phoneNumber,null,message,sendIntent,backIntent);
+//
+        } catch (Exception e){
+
+            Toasty.error(activity,"无法获取到短信权限，需要手动点发送",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:"+phoneNumber));
+            intent.putExtra("sms_body", message);
+            buttonCommit.loadingSuccessful();
+            startActivity(intent);
+
+
         }
 
     }
+
+
+
+//    public void sendSMS(String phoneNumber,String message){
+//
+//
+//
+//
+//        if (ContextCompat.checkSelfPermission(activity,Manifest.permission.SEND_SMS)
+//                != PackageManager.PERMISSION_GRANTED){
+//
+//            Toasty.error(activity,"无法获取到短信权限，需要手动点发送",Toast.LENGTH_LONG).show();
+//            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:"+phoneNumber));
+//            intent.putExtra("sms_body", message);
+//            buttonCommit.loadingSuccessful();
+//            startActivity(intent);
+//
+//
+//        } else {
+//            //处理返回的发送状态
+//            String SENT_SMS_ACTION = "SENT_SMS_ACTION";
+//            Intent sentIntent = new Intent(SENT_SMS_ACTION);
+//            PendingIntent sendIntent= PendingIntent.getBroadcast(activity, 0, sentIntent,
+//                    0);
+//// register the Broadcast Receivers
+//            activity.registerReceiver(new BroadcastReceiver() {
+//                @Override
+//                public void onReceive(Context _context, Intent _intent) {
+//                    switch (getResultCode()) {
+//                        case Activity.RESULT_OK:
+//
+////                            activity.showToast(getContext(),"成功向技术人员提交消息！正在检测是否接收，不要关闭应用");
+//                            Toasty.success(getContext(),"成功向技术人员提交消息！正在检测是否接收，不要关闭应用",Toast.LENGTH_LONG).show();
+//                            buttonCommit.loadingSuccessful();
+//                            break;
+//                        case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+//                        case SmsManager.RESULT_ERROR_RADIO_OFF:
+//                        case SmsManager.RESULT_ERROR_NULL_PDU:
+////                            buttonCommit.loadingFailed();
+//                            new android.support.v7.app.AlertDialog.Builder(getContext())
+//                                    .setTitle("出错啦")
+//                                    .setMessage("提交失败了，是不是要手动提交")
+//                                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            buttonCommit.loadingFailed();
+//                                        }
+//                                    })
+//                                    .setPositiveButton("好的", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:"+phoneNumber));
+//                                            intent.putExtra("sms_body", message);
+//                                            buttonCommit.loadingSuccessful();
+//                                            startActivity(intent);
+//                                        }
+//                                    })
+//                                    .show();
+////                            Toast.makeText(MainActivity.this,"",Toast.LENGTH_LONG).show();
+//                            break;
+//                    }
+//                }
+//            }, new IntentFilter(SENT_SMS_ACTION));
+//            //处理返回的接收状态
+//            String DELIVERED_SMS_ACTION = "DELIVERED_SMS_ACTION";
+//// create the deilverIntent parameter
+//            Intent deliverIntent = new Intent(DELIVERED_SMS_ACTION);
+//            PendingIntent backIntent= PendingIntent.getBroadcast(activity, 0,
+//                    deliverIntent, 0);
+//            activity.registerReceiver(new BroadcastReceiver() {
+//                @Override
+//                public void onReceive(Context _context, Intent _intent) {
+//
+////                    buttonCommit.loadingSuccessful();
+//
+//
+////                    Toast.makeText(MainActivity.this,
+////                            "", Toast.LENGTH_SHORT)
+////                            .show();
+//
+//                    new android.support.v7.app.AlertDialog.Builder(getContext())
+//                            .setTitle("成功啦")
+//                            .setMessage("技术人员会在两小时内联系您，请耐性等候")
+//                            .setNegativeButton("好的", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//
+//                                }
+//                            })
+//                            .show();
+//
+//                }
+//            }, new IntentFilter(DELIVERED_SMS_ACTION));
+//            SmsManager smsManager = SmsManager.getDefault();
+//            smsManager.sendTextMessage(phoneNumber,null,message,sendIntent,backIntent);
+//        }
+//
+//    }
 
 
 
