@@ -1,38 +1,34 @@
 package fragment;
 
+import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
-
+import android.widget.Toolbar;
 
 import org.lzh.framework.updatepluginlib.UpdateBuilder;
 
-import fixed.MainActivity;
+import context.MyApplication;
+import fixed.BaseActivity;
 import liyulong.com.fixed.R;
 import mehdi.sakout.aboutpage.AboutPage;
 import mehdi.sakout.aboutpage.Element;
 import util.getVersion;
 
-public class AboutActivity extends Fragment {
+public class AboutActivity extends BaseActivity {
 
-    private MainActivity activity;
-    private int clickCount;
+    Context activity = this;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.activity_about,container,false);
-        activity = (MainActivity) getActivity();
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        clickCount = 0;
+
 
 
         Element versionElement = new Element();
@@ -44,52 +40,7 @@ public class AboutActivity extends Fragment {
                 UpdateBuilder.create().check();
             }
         });
-//        versionElement.setOnClickListener(new View.OnClickListener() {
-//            String string = "";
-//            @Override
-//            public void onClick(View v) {
-//                clickCount += 1;
-//                switch (clickCount){
-//                    case 1:
-//                        string = "这里没有东西，不要点了";
-//                        break;
-//                    case 2:
-//                        string = "没有东西，真的不要点了";
-//                        break;
-//                    case 3:
-//                        string = "你咋还点呢";
-//                        break;
-//                    case 4:
-//                        string = "woc你是真的无聊呀";
-//                        break;
-//                    case 5:
-//                        string = "我受不了你了";
-//                        break;
-//                    case 6:
-//                        string = "再点不理你了";
-//                        break;
-//                    case 7:
-//                        string = "真不理你了，别点了";
-//                        break;
-//                    case 8:
-//                        string = "真没想到你会这么坚持";
-//                        break;
-//                    case 9:
-//                        string = "牛批";
-//                        break;
-//                    default:
-//                        string = "牛批";
-//                        break;
-//                }
-//                if (!string.isEmpty()) {
-//                    activity.showToast(string);
-//                }
-//                if (clickCount == 50){
-//                    activity.showToast("兄贵你是真滴无聊真滴牛批");
-//                    clickCount = 0;
-//                }
-//            }
-//        });
+
 
         Element qqElement = new Element();
         qqElement.setTitle("QQ");
@@ -137,13 +88,8 @@ public class AboutActivity extends Fragment {
 
                 .create();
 
+        setContentView(aboutPage);
 
-        return aboutPage;
+
     }
-
-//    @Override
-//    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-//        return MoveAnimation.create(MoveAnimation.LEFT,enter,500);
-//
-//    }
 }

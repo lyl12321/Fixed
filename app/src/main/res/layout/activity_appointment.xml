@@ -170,9 +170,10 @@
                                 />
 
                             <Button
+
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="9"
+                                android:layout_weight="8"
                                 android:backgroundTintMode="screen"
                                 android:outlineProvider="none"
                                 android:gravity="center"
@@ -180,6 +181,9 @@
                                 android:text="点我选择位置"
                                 android:textSize="18dp"
                                 android:id="@+id/button_position"
+                                android:background="@drawable/buttonstyle"
+
+
                                 />
 
                         </LinearLayout>
@@ -198,16 +202,18 @@
                                 android:layout_weight="1"
                                 />
 
+
                             <Button
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="9"
+                                android:layout_weight="8"
                                 android:backgroundTintMode="screen"
                                 android:outlineProvider="none"
                                 android:textColor="@color/blue"
                                 android:text="点我选择时间"
                                 android:textSize="18dp"
                                 android:id="@+id/button_Time"
+                                android:background="@drawable/buttonstyle"
                                 />
 
                         </LinearLayout>
@@ -230,7 +236,7 @@
                             <Button
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="9"
+                                android:layout_weight="8"
                                 android:backgroundTintMode="screen"
                                 android:outlineProvider="none"
                                 android:textColor="@color/blue"
@@ -238,6 +244,7 @@
                                 android:textSize="18dp"
                                 android:id="@+id/button_People"
                                 android:textAllCaps="false"
+                                android:background="@drawable/buttonstyle"
                                 />
 
                         </LinearLayout>

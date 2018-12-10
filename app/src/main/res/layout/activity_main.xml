@@ -7,18 +7,7 @@
     android:orientation="vertical"
     tools:context="fixed.MainActivity"
     android:background="@color/ic_launcher_background">
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:id="@+id/tool_bar"
-        android:background="?attr/actionModeBackground"
-        android:elevation="6dp"
-        >
-
-
-
-
-    </android.support.v7.widget.Toolbar>
+    <include layout="@layout/toolbar_layout"/>
 
     <FrameLayout
         android:id="@+id/frameLyout_main"
@@ -28,13 +17,13 @@
 
     </FrameLayout>
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/navigation"
-        />
+    <!--<android.support.design.widget.BottomNavigationView-->
+        <!--android:id="@+id/navigation"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:background="?android:attr/windowBackground"-->
+        <!--app:menu="@menu/navigation"-->
+        <!--/>-->
 
 </LinearLayout>

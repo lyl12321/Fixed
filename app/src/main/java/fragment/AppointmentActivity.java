@@ -470,7 +470,7 @@ public class AppointmentActivity extends Fragment {
                         case Activity.RESULT_OK:
 
 //                            activity.showToast(getContext(),"成功向技术人员提交消息！正在检测是否接收，不要关闭应用");
-                            Toasty.success(getContext(),"成功向技术人员提交消息！正在检测是否接收，不要关闭应用",Toast.LENGTH_LONG).show();
+                            Toasty.success(getContext(),"成功向技术人员提交消息！当技术人员收到您的消息时会马上联系您",Toast.LENGTH_LONG).show();
                             buttonCommit.loadingSuccessful();
                             break;
                         case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
@@ -523,7 +523,7 @@ public class AppointmentActivity extends Fragment {
 
                     new android.support.v7.app.AlertDialog.Builder(getContext())
                             .setTitle("成功啦")
-                            .setMessage("技术人员会在两小时内联系您，请耐性等候")
+                            .setMessage("技术人员会在10分钟内联系您，请耐性等候")
                             .setNegativeButton("好的", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -663,9 +663,5 @@ public class AppointmentActivity extends Fragment {
         return format.format(date);
     }
 
-    //    @Override
-//    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-//        return MoveAnimation.create(MoveAnimation.LEFT,enter,500);
-//
-//    }
+
 }
