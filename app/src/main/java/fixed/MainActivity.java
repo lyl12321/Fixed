@@ -50,6 +50,7 @@ import fragment.*;
 import okhttp3.Call;
 import okhttp3.Response;
 import util.HttpUtil;
+import util.SharedPreferencesUtil;
 
 
 public class MainActivity extends BaseActivity {
@@ -92,13 +93,15 @@ public class MainActivity extends BaseActivity {
         toolbar.setTitle("    预约");
         setSupportActionBar(toolbar);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED
 //                || ContextCompat.checkSelfPermission(this,Manifest.permission.READ_PHONE_STATE)
 //                    != PackageManager.PERMISSION_GRANTED
                     ) {
                 new android.support.v7.app.AlertDialog.Builder(this)
-                        .setMessage("需要一些权限，点击确定开始授权")
+                        .setMessage("程序需要一些必要的权限才能正常工作，请同意")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -108,11 +111,14 @@ public class MainActivity extends BaseActivity {
 
                         .setCancelable(false)
                         .show();
-            } else {
 
-            UpdateBuilder.create().check();
+                } else {
 
-        }
+                UpdateBuilder.create().check();
+
+            }
+
+
 
 
 
@@ -185,9 +191,9 @@ public class MainActivity extends BaseActivity {
             ActivityCompat.requestPermissions(this,
                     new String[]{
                             Manifest.permission.SEND_SMS,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_PHONE_STATE,
-                            Manifest.permission.ACCESS_FINE_LOCATION
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                            Manifest.permission.READ_PHONE_STATE,
+//                            Manifest.permission.ACCESS_FINE_LOCATION
                     }, PERMISSIONS_REQUEST_CODE);
 
         }

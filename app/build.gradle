@@ -6,13 +6,13 @@ android {
         applicationId "liyulong.com.fixed"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 7
-        versionName "1.7"
+        versionCode 8
+        versionName "1.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
                 //A3JQ32U6NGAH 属于应用"机电修"独有的 Android AppKey, 用于配置SDK
                 MTA_APPKEY:"A3JQ32U6NGAH",
-                MTA_CHANNEL:"通用平台"
+                MTA_CHANNEL:"应用宝"
         ]
     }
     buildTypes {

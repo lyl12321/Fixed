@@ -4,13 +4,11 @@
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:id="@+id/tool_bar"
         android:background="?attr/actionModeBackground"
-        android:elevation="6dp"
-        >
-
+        android:elevation="6dp">
 
 
     </android.support.v7.widget.Toolbar>

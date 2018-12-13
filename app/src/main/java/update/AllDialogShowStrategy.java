@@ -24,7 +24,7 @@ public class AllDialogShowStrategy extends UpdateStrategy {
      */
     @Override
     public boolean isAutoInstall() {
-        return false;
+        return true;
     }
 
     /**

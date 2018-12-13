@@ -32,7 +32,7 @@ public class AboutActivity extends BaseActivity {
 
 
         Element versionElement = new Element();
-        versionElement.setTitle("软件版本:"+getVersion.getLocalVersionName(activity));
+        versionElement.setTitle("软件版本 "+getVersion.getLocalVersionName(activity));
         versionElement.setIconDrawable(R.drawable.ic_info_circle);
         versionElement.setOnClickListener(new View.OnClickListener() {
             @Override

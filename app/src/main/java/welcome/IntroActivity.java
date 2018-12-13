@@ -40,14 +40,14 @@ public class IntroActivity extends AppIntro {
 
         SliderPage sliderPage2 = new SliderPage();
         sliderPage2.setTitle("权限");
-        sliderPage2.setDescription("我们需要一些权限才能正常工作，在您进行下一步前，我们会向您申请一些必要的权限！");
+        sliderPage2.setDescription("我需要一些权限才能正常工作，在您进行下一步前，我会向您申请一些必要的权限！");
         sliderPage2.setImageDrawable(R.drawable.ic_service);
         sliderPage2.setBgColor(getResources().getColor(R.color.blue));
         addSlide(AppIntroFragment.newInstance(sliderPage2));
 
         SliderPage sliderPage3 = new SliderPage();
         sliderPage3.setTitle("使用");
-        sliderPage3.setDescription("您只需在主页面填入个人信息，点击提交按钮，即可！");
+        sliderPage3.setDescription("您只需在主页面填入个人信息，点击提交按钮，即可，如果有更多需求，可以在关于页面单击我的qq联系我！");
         sliderPage3.setImageDrawable(R.drawable.ic_per);
         sliderPage3.setBgColor(getResources().getColor(R.color.colorPrimary));
         addSlide(AppIntroFragment.newInstance(sliderPage3));
