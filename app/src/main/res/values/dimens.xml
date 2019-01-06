@@ -8,7 +8,8 @@
     <dimen name="layout_marginend">12dp</dimen>
     <dimen name="layout_marginBottom">12dp</dimen>
     <dimen name="cardcornerradius">8dp</dimen>
-    <dimen name="cardelevation">2dp</dimen>
+    <dimen name="cardelevation">4dp</dimen>
     <dimen name="checkboxpadding">6dp</dimen>
+    <dimen name="textsize">18dp</dimen>
 
 </resources>

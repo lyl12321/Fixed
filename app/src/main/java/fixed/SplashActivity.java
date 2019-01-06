@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Trace;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -32,11 +33,12 @@ import okhttp3.Call;
 import okhttp3.Response;
 import update.*;
 import util.HttpUtil;
+import util.ReCommit;
 import util.SharedPreferencesUtil;
 import welcome.IntroActivity;
 
 public class SplashActivity extends BaseActivity {
-    String url = "http://104.36.70.78/update.json";
+    String url = "http://lqwqb.ml/update.json";
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -108,16 +110,26 @@ public class SplashActivity extends BaseActivity {
 
 
 
-        new Handler().postDelayed(new Runnable() {
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+//                startActivity(intent);
+//                finish();
+//
+//            }
+//
+//            }, 500);
+        new Thread(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                SharedPreferences perf = getSharedPreferences("returnid", MODE_PRIVATE);
+                ReCommit.netReCommit(MyApplication.getContext(),perf.getInt("id",0));
+                Intent intent = new Intent(MyApplication.getContext(),MainActivity.class);
                 startActivity(intent);
                 finish();
-
             }
-
-            }, 500);
+        }).start();
 
 
 

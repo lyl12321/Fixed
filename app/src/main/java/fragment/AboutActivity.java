@@ -1,43 +1,41 @@
 package fragment;
 
-import android.app.ActionBar;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import org.lzh.framework.updatepluginlib.UpdateBuilder;
 
-import context.MyApplication;
-import fixed.BaseActivity;
+import fixed.MainActivity;
 import liyulong.com.fixed.R;
 import mehdi.sakout.aboutpage.AboutPage;
 import mehdi.sakout.aboutpage.Element;
+import update.ClickUpdateToastCallback;
+
 import util.getVersion;
 
-public class AboutActivity extends BaseActivity {
+public class AboutActivity extends Fragment {
 
-    Context activity = this;
+    MainActivity activity;
 
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        activity = (MainActivity) getActivity();
         Element versionElement = new Element();
         versionElement.setTitle("软件版本 "+getVersion.getLocalVersionName(activity));
         versionElement.setIconDrawable(R.drawable.ic_info_circle);
         versionElement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UpdateBuilder.create().check();
+                UpdateBuilder.create().setCheckCallback(new ClickUpdateToastCallback()).check();
             }
         });
 
@@ -87,9 +85,6 @@ public class AboutActivity extends BaseActivity {
                 .addItem(versionElement)
 
                 .create();
-
-        setContentView(aboutPage);
-
-
+        return aboutPage;
     }
 }

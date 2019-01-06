@@ -182,7 +182,7 @@
                                 android:textSize="18dp"
                                 android:id="@+id/button_position"
                                 android:background="@drawable/buttonstyle"
-
+                                android:foreground="@drawable/rip"
 
                                 />
 
@@ -214,6 +214,7 @@
                                 android:textSize="18dp"
                                 android:id="@+id/button_Time"
                                 android:background="@drawable/buttonstyle"
+                                android:foreground="@drawable/rip"
                                 />
 
                         </LinearLayout>
@@ -245,6 +246,7 @@
                                 android:id="@+id/button_People"
                                 android:textAllCaps="false"
                                 android:background="@drawable/buttonstyle"
+                                android:foreground="@drawable/rip"
                                 />
 
                         </LinearLayout>
@@ -388,8 +390,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingRight="12dp"
-        android:paddingLeft="12dp"
+
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="12dp"
+
         >
 
         <com.dx.dxloadingbutton.lib.LoadingButton

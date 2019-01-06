@@ -10,7 +10,6 @@ import java.io.File;
 
 /**
  * 生成下载apk文件的文件地址
- * 默认使用参考 {@link DefaultFileCreator}
  */
 public class CustomApkFileCreator extends FileCreator {
     @Override

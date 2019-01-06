@@ -6,7 +6,6 @@ import org.lzh.framework.updatepluginlib.model.Update;
 
 /**
  * 自定义强制显示所有Dialog策略，
- * 默认使用参考 {@link WifiFirstStrategy}
  */
 public class AllDialogShowStrategy extends UpdateStrategy {
     /** 指定是否在判断出有需要更新的版本时。弹出更新提醒弹窗

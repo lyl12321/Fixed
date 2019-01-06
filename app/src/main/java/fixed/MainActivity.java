@@ -1,23 +1,13 @@
 package fixed;
 
 import android.Manifest;
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
-import android.preference.PreferenceManager;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -26,14 +16,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
-import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import android.view.View;
-import android.view.Window;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -42,24 +27,27 @@ import com.tencent.stat.StatService;
 
 import org.lzh.framework.updatepluginlib.UpdateBuilder;
 
-import java.io.IOException;
-
+import context.MyApplication;
 import es.dmoral.toasty.Toasty;
 import liyulong.com.fixed.R;
 import fragment.*;
-import okhttp3.Call;
-import okhttp3.Response;
-import util.HttpUtil;
-import util.SharedPreferencesUtil;
+import update.ClickUpdateToastCallback;
+import util.getVersion;
 
 
 public class MainActivity extends BaseActivity {
 
 
     Fragment appointmentActivity = new AppointmentActivity();
+    Fragment about = new AboutActivity();
+    Fragment orderActivity = new OrderActivity();
+    private Fragment currentFragment ;
 
 
     private Toolbar toolbar;
+    private BottomNavigationView bottomNavigationView;
+
+    UpdateBuilder autoUpdate = UpdateBuilder.create();
 
     @Override
     public void onBackPressed() {
@@ -80,22 +68,62 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         setContentView(R.layout.activity_main);
 
+//
+//        //开启应用统计功能
+        if (!getVersion.isApkInDebug(MyApplication.getContext())){
+            StatConfig.setDebugEnable(false);
+            StatService.registerActivityLifecycleCallbacks(this.getApplication());
+        }
 
-        StatConfig.setDebugEnable(false);
-        StatService.registerActivityLifecycleCallbacks(this.getApplication());
 
-
-        replaceFragment(appointmentActivity);
+//        replaceFragment(appointmentActivity);
+        initFragment();
         toolbar = findViewById(R.id.tool_bar);
         toolbar.setLogo(R.drawable.ic_time_circle);
         toolbar.setTitle("    预约");
         setSupportActionBar(toolbar);
 
+        //**的设置。。。
+//        SharedPreferences perf1 = getSharedPreferences("returnid",MODE_PRIVATE);
+        bottomNavigationView = findViewById(R.id.navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.navigation_appointment:
+                        replaceFragment(appointmentActivity);
+                        toolbar.setLogo(R.drawable.ic_time_circle);
+                        toolbar.setTitle("    预约");
+//                        if (perf1.getInt("id",0) != 0){
+//                            changeToolbar(String.valueOf(perf1.getInt("id",0)));
+//                        }
+                        break;
+                    case R.id.navigation_about:
+                        replaceFragment(about);
+                        toolbar.setTitle("    关于");
+                        toolbar.setLogo(R.drawable.ic_info_circle);
+                        break;
+                    case R.id.navigation_order:
+                        replaceFragment(orderActivity);
+                        toolbar.setTitle("    订单");
+                        toolbar.setLogo(R.drawable.ic_order);
+                        break;
+                }
+                return true;
+            }
+        });
 
 
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED
 //                || ContextCompat.checkSelfPermission(this,Manifest.permission.READ_PHONE_STATE)
 //                    != PackageManager.PERMISSION_GRANTED
@@ -111,18 +139,9 @@ public class MainActivity extends BaseActivity {
 
                         .setCancelable(false)
                         .show();
-
-                } else {
-
-                UpdateBuilder.create().check();
-
-            }
-
-
-
-
-
-
+        } else {
+            autoUpdate.checkWithDaemon(30);
+        }
 
 
 
@@ -133,20 +152,34 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        autoUpdate.stopDaemon();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences perf = getSharedPreferences("returnid", MODE_PRIVATE);
+        if (perf.getInt("id",0) != 0){
+            changeToolbar(String.valueOf(perf.getInt("id",0)));
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.navigation_about:
-                Intent aboutIntent = new Intent(this,AboutActivity.class);
-                startActivity(aboutIntent);
+            case R.id.auto_update:
+                UpdateBuilder.create().setCheckCallback(new ClickUpdateToastCallback()).check();
+                break;
         }
         return true;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.navigation,menu);
+        getMenuInflater().inflate(R.menu.toolbar_menu,menu);
         return true;
     }
 
@@ -190,7 +223,7 @@ public class MainActivity extends BaseActivity {
 
             ActivityCompat.requestPermissions(this,
                     new String[]{
-                            Manifest.permission.SEND_SMS,
+//                            Manifest.permission.SEND_SMS,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE
 //                            Manifest.permission.READ_PHONE_STATE,
 //                            Manifest.permission.ACCESS_FINE_LOCATION
@@ -228,16 +261,43 @@ public class MainActivity extends BaseActivity {
 
 
 
+    private void initFragment(){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.frameLyout_main,appointmentActivity).commit();
+//        transaction.add(R.id.frameLyout_main,orderActivity).hide(orderActivity).commit();
+//        transaction.add(R.id.frameLyout_main,about).hide(about).commit();
+        currentFragment = appointmentActivity;
+    }
+
 
 
 
 
     private void replaceFragment(Fragment fragment){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 //        transaction.addToBackStack(null);
-        transaction.replace(R.id.frameLyout_main,fragment);
-        transaction.commit();
+
+        if (!fragment.isAdded()) {
+            transaction
+                    .hide(currentFragment)
+                    .add(R.id.frameLyout_main, fragment)
+                    .commit();
+        } else {
+            transaction
+                    .hide(currentFragment)
+                    .show(fragment)
+                    .commit();
+        }
+        currentFragment = fragment;
+    }
+
+    public void changeToolbar(String id){
+        if (Integer.valueOf(id) == 0){
+            toolbar.setSubtitle("");
+            return;
+        }
+        toolbar.setSubtitle("    已预约,订单号: "+id);
+        toolbar.setSubtitleTextColor(getResources().getColor(R.color.red));
     }
 
 

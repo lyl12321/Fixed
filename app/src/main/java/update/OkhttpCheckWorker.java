@@ -14,10 +14,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 /**
- * <p>
  * 定制一个简单的使用okHttp做更新接口检查的网络任务。
- * 框架默认使用参考：{@link DefaultCheckWorker}
- * </p>
  */
 public class OkhttpCheckWorker extends CheckWorker {
 

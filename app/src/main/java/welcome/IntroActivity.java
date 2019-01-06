@@ -17,7 +17,7 @@ import util.SharedPreferencesUtil;
 public class IntroActivity extends AppIntro {
 
     String[] string = new String[]{
-            Manifest.permission.SEND_SMS,
+//            Manifest.permission.SEND_SMS,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -28,6 +28,7 @@ public class IntroActivity extends AppIntro {
         super.onCreate(savedInstanceState);
         showStatusBar(false);
         showSkipButton(false);
+
 
         SliderPage sliderPage1 = new SliderPage();
         sliderPage1.setTitle("你好");
