@@ -41,7 +41,7 @@ public class AboutActivity extends Fragment {
 
 
         Element qqElement = new Element();
-        qqElement.setTitle("QQ");
+        qqElement.setTitle("QQ (刷课)");
         qqElement.setIconDrawable(R.drawable.ic_qq);
         qqElement.setOnClickListener(new View.OnClickListener() {
             @Override

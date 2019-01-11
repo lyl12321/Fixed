@@ -63,6 +63,7 @@ public class IntroActivity extends AppIntro {
     public void onDonePressed() {
         super.onDonePressed();
         SharedPreferencesUtil.putBoolean(this,SharedPreferencesUtil.FIRST_OPEN,false);
+
         startActivity(new Intent(this,MainActivity.class));
         finish();
     }

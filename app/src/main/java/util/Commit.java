@@ -29,9 +29,10 @@ public class Commit {
                 .add("servicePeople", String.valueOf(servicePeopleNumber))
                 .add("issue", issue)
                 .add("commitTime", commitTime)
+                .add("imei",GetIMEI.getIMEI(context))
                 .build();
         Request request = new Request.Builder()
-                .url("http://lqwqb.ml/appdata/client/commit.php")
+                .url("http://172.96.252.160/appdata/client/commit.php")
                 .post(requestBody)
                 .build();
         try {

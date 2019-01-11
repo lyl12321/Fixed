@@ -154,7 +154,6 @@ public class AppointmentActivity extends Fragment {
         });
         buttonCommit.setOnClickListener(V -> {
             buttonCommit.reset();
-
             String tempString = "";
             String issue = "";
 
@@ -188,7 +187,7 @@ public class AppointmentActivity extends Fragment {
 
 
 
-            if (tempString.length() == 0) {
+            if (tempString.length() == 0 ) {
 
                 String finalIssue = issue;
                 new android.support.v7.app.AlertDialog.Builder(getContext())

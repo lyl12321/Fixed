@@ -78,6 +78,14 @@
                 android:textSize="@dimen/textsize"
                 android:id="@+id/list_item_commitTime"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textSize="24dp"
+                android:id="@+id/list_item_solve"
+                android:text="已完成"/>
+
 
 
         </LinearLayout>

@@ -29,7 +29,7 @@ public class ReCommit {
                 .add("id", id+"")
                 .build();
         Request request = new Request.Builder()
-                .url("http://lqwqb.ml/appdata/client/recommit.php")
+                .url("http://172.96.252.160/appdata/client/recommit.php")
                 .post(requestBody)
                 .build();
         try {
