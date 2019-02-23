@@ -31,4 +31,6 @@
 # 保留R下面的资源
 -keep class **.R$* {*;}
 
--keep public class util.JsonBean.**{*;}
+-keep class util.JsonBean.**{*;}
+-keep class fixed.OrderData.**{*;}
+-keep class fragment.OrderActivity.**{*;}

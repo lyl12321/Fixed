@@ -126,7 +126,18 @@ public class SplashActivity extends BaseActivity {
                 SharedPreferences perf = getSharedPreferences("returnid", MODE_PRIVATE);
                 ReCommit.netReCommit(MyApplication.getContext(),perf.getInt("id",0));
                 Intent intent = new Intent(MyApplication.getContext(),MainActivity.class);
+                try {
+                    Thread.sleep(800);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 startActivity(intent);
+                //finish();
+                try {
+                    Thread.sleep(1025);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 finish();
             }
         }).start();

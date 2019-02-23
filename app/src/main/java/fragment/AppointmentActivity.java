@@ -1,13 +1,17 @@
 package fragment;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.telephony.TelephonyManager;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,19 +49,20 @@ import util.JsonBean;
 import util.NetState;
 import util.PhoneNumberMatch;
 import util.ReCommit;
+import util.StringFilter;
 
 public class AppointmentActivity extends Fragment {
 
     private EditText name;
     private EditText phone;
-//    private NiceSpinner buildNumber;
+    //    private NiceSpinner buildNumber;
 //    private NiceSpinner floorNumber;
 //    private NiceSpinner sNumber;
     private Button chooseTime;
     private Calendar date;
     private Calendar tDate;
     private Calendar tDate2;
-//    private int aYear;
+    //    private int aYear;
 //    private int aMonth;
 //    private int aDay;
 //    private int aHour;
@@ -79,15 +84,14 @@ public class AppointmentActivity extends Fragment {
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
     private Thread thread;
-    private int noption1,noption2,noption3 = 0;
+    private int noption1, noption2, noption3 = 0;
     private boolean[] timepicktype = new boolean[]{false, false, true, true, true, false};
-
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_appointment,container,false);
+        View view = inflater.inflate(R.layout.activity_appointment, container, false);
 
         name = view.findViewById(R.id.editText_Name);
         phone = view.findViewById(R.id.editText_Phone);
@@ -97,8 +101,13 @@ public class AppointmentActivity extends Fragment {
         chooseTime = view.findViewById(R.id.button_Time);
         date = Calendar.getInstance();
         tDate = Calendar.getInstance();
+
+        tDate.add(Calendar.MINUTE, 20);
+        chooseTime.setText(getTime(tDate.getTime()));
+
+
         tDate2 = Calendar.getInstance();
-        tDate.set(2000,4,29,0,0);
+//        tDate.set(2000, 4, 29, 0, 0);
         checkBoxes = new CheckBox[5];
         checkBoxes[0] = view.findViewById(R.id.checkBox1);
         checkBoxes[1] = view.findViewById(R.id.checkBox2);
@@ -112,7 +121,8 @@ public class AppointmentActivity extends Fragment {
         servicePeopleNumber = 111111;
 //        phoneNumber = "13365591802";
         choosePeople = view.findViewById(R.id.button_People);
-        servicePeople = new String[]{"lqwq    (李钰龙)","cloverkit    (周广来)"};
+        servicePeople = new String[]{"lqwq    (李钰龙)", "cloverkit    (周广来)"};
+
 
         thread = new Thread(new Runnable() {
             @Override
@@ -124,17 +134,18 @@ public class AppointmentActivity extends Fragment {
         thread.start();
 
         //进行时间的判断
-        tDate2.add(Calendar.DATE,7);
-        if (!(date.get(Calendar.MONTH) == tDate2.get(Calendar.MONTH))){
+        tDate2.add(Calendar.DATE, 7);
+        if (!(date.get(Calendar.MONTH) == tDate2.get(Calendar.MONTH))) {
             timepicktype[1] = true;
         }
-        if (!(date.get(Calendar.YEAR) == tDate2.get(Calendar.YEAR))){
+        if (!(date.get(Calendar.YEAR) == tDate2.get(Calendar.YEAR))) {
             timepicktype[0] = true;
         }
 
 //        choosePosition.setText("点我选择位置");
 
 //        progressBar.setIndeterminateDrawable(new DoubleBounce());
+
 
 
 
@@ -146,6 +157,28 @@ public class AppointmentActivity extends Fragment {
 //        String[] bString = new String[]{"1北","1南","2北","2南","3北","3南","4北","4南","5北","5南","6北","6南"};
 //        String[] fString = new String[6];
 //        String[] sString = new String[maxS];
+
+
+        TelephonyManager tm = (TelephonyManager) activity.getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+
+            try {
+                String tmLine1Number = tm.getLine1Number();
+                if (tmLine1Number.length() >= 11){
+                    String mPhoneNumber = tmLine1Number.substring(tmLine1Number.length()-11);
+//            StringFilter.StringFilter(tmLine1Number);
+                    if (!mPhoneNumber.equals("00000000000") && mPhoneNumber.length() == 11){
+                        phone.setText(mPhoneNumber);
+                        Toast.makeText(activity,"电话号码已经自动填入，如有误请修改！",Toast.LENGTH_LONG).show();
+
+                    }
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+
 
         chooseTime.setOnClickListener(V -> {
 
@@ -171,17 +204,17 @@ public class AppointmentActivity extends Fragment {
             if (!(date.before(tDate))){
                 tempString += "--预约时间不能小于现在时间"+"\n";
             }
-            String tempString1 = "";
-            for(int i = 0; i <=4; i++){
-                if (checkBoxes[i].isChecked()){
-                    tempString1 += checkBoxes[i].getText()+",";
-                    issue += checkBoxes[i].getText()+",";
-                }
-            }
-
-            if (tempString1 == ""){
-                tempString += "--您必须选择一项遇到的问题"+"\n";
-            }
+//            String tempString1 = "";
+//            for(int i = 0; i <=4; i++){
+//                if (checkBoxes[i].isChecked()){
+//                    tempString1 += checkBoxes[i].getText()+",";
+//                    issue += checkBoxes[i].getText()+",";
+//                }
+//            }
+//
+//            if (tempString1 == ""){
+//                tempString += "--您必须选择一项遇到的问题"+"\n";
+//            }
 
 
 
@@ -405,9 +438,9 @@ public class AppointmentActivity extends Fragment {
         return "姓名:"+name.getText()+'\n'+
                 "电话:"+phone.getText()+'\n'+
                 "地址:"+choosePosition.getText()+'\n'+
-                "预约时间:"+chooseTime.getText()+'\n'+
+                "预约时间:"+chooseTime.getText()+'\n';
 //                "服务人员:"+choosePeople.getText()+'\n'+
-                "出现的问题:"+question;
+//                "出现的问题:"+question;
     }
 
 
@@ -459,7 +492,7 @@ public class AppointmentActivity extends Fragment {
         Calendar endDate = Calendar.getInstance();
 
 
-        startDate.set(date.get(Calendar.YEAR),date.get(Calendar.MONTH),date.get(Calendar.DATE),date.get(Calendar.HOUR_OF_DAY),date.get(Calendar.MINUTE)+10);
+        startDate.set(date.get(Calendar.YEAR),date.get(Calendar.MONTH),date.get(Calendar.DATE),date.get(Calendar.HOUR_OF_DAY),date.get(Calendar.MINUTE)+20);
         endDate.set(date.get(Calendar.YEAR),date.get(Calendar.MONTH),date.get(Calendar.DATE)+7);
 
         TimePickerView pvTime = new TimePickerBuilder(activity, new OnTimeSelectListener() {
@@ -489,21 +522,12 @@ public class AppointmentActivity extends Fragment {
 
     private void initJsonData() {//解析数据
 
-        /**
-         * 注意：assets 目录下的Json文件仅供参考，实际使用可自行替换文件
-         * 关键逻辑在于循环体
-         *
-         * */
+
         String JsonData = new GetJsonDataUtil().getJson(activity, "province.json");//获取assets目录下的json文件数据
 
         ArrayList<JsonBean> jsonBean = parseData(JsonData);//用Gson 转成实体
 
-        /**
-         * 添加省份数据
-         *
-         * 注意：如果是添加的JavaBean实体，则实体类需要实现 IPickerViewData 接口，
-         * PickerView会通过getPickerViewText方法获取字符串显示出来。
-         */
+
         options1Items = jsonBean;
 
         for (int i = 0; i < jsonBean.size(); i++) {//遍历省份

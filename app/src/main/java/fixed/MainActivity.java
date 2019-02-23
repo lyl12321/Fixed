@@ -300,5 +300,10 @@ public class MainActivity extends BaseActivity {
         toolbar.setSubtitleTextColor(getResources().getColor(R.color.red));
     }
 
+    public void closeToolbarState(){
+        toolbar.setSubtitle("");
+        toolbar.refreshDrawableState();
+    }
+
 
 }

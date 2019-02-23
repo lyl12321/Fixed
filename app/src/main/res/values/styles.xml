@@ -1,15 +1,15 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!--<item name="toolbarNavigationButtonStyle">@color/colorPrimaryDark</item>-->
-        <item name="bottomNavigationStyle">@color/colorPrimaryDark</item>
-        <item name="buttonStyle">@style/Widget.AppCompat.Button.Borderless</item>
-        <item name="colorButtonNormal">@color/ic_launcher_background</item>
+        <!--<item name="bottomNavigationStyle">@color/colorPrimaryDark</item>-->
+        <!--<item name="buttonStyle">@style/Widget.AppCompat.Button.Borderless</item>-->
+        <!--<item name="colorButtonNormal">@color/ic_launcher_background</item>-->
     </style>
 
 
