@@ -2,14 +2,14 @@
 <resources>
 
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="toolbarNavigationButtonStyle">@color/colorPrimaryDark</item>
-        <item name="bottomNavigationStyle">@color/colorPrimaryDark</item>
-        <!--<item name="buttonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>-->
+        <!--<item name="toolbarNavigationButtonStyle">@color/colorPrimaryDark</item>-->
+        <!--<item name="bottomNavigationStyle">@color/colorPrimaryDark</item>-->
+        <!--<item name="buttonStyle">@style/Widget.MaterialComponents.Button.OutlinedButton</item>-->
         <!--<item name="android:button">@style/Widget.MaterialComponents.Button.TextButton</item>-->
         <!--<item name="colorButtonNormal">@color/ic_launcher_background</item>-->
     </style>

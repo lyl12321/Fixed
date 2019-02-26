@@ -32,6 +32,7 @@ import es.dmoral.toasty.Toasty;
 import liyulong.com.fixed.R;
 import fragment.*;
 import update.ClickUpdateToastCallback;
+import update.ToastCallback;
 import util.getVersion;
 
 
@@ -41,13 +42,13 @@ public class MainActivity extends BaseActivity {
     Fragment appointmentActivity = new AppointmentActivity();
     Fragment about = new AboutActivity();
     Fragment orderActivity = new OrderActivity();
-    private Fragment currentFragment ;
+    private MyFragment currentFragment ;
 
 
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
 
-    UpdateBuilder autoUpdate = UpdateBuilder.create();
+
 
     @Override
     public void onBackPressed() {
@@ -68,7 +69,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (android.os.Build.VERSION.SDK_INT > 9) {
+        if (android.os.Build.VERSION.SDK_INT > 21) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
@@ -89,6 +90,7 @@ public class MainActivity extends BaseActivity {
         toolbar.setTitle("    预约");
         setSupportActionBar(toolbar);
 
+
         //**的设置。。。
 //        SharedPreferences perf1 = getSharedPreferences("returnid",MODE_PRIVATE);
         bottomNavigationView = findViewById(R.id.navigation);
@@ -98,7 +100,7 @@ public class MainActivity extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.navigation_appointment:
-                        replaceFragment(appointmentActivity);
+                        replaceFragment((MyFragment) appointmentActivity);
                         toolbar.setLogo(R.drawable.ic_time_circle);
                         toolbar.setTitle("    预约");
 //                        if (perf1.getInt("id",0) != 0){
@@ -106,12 +108,12 @@ public class MainActivity extends BaseActivity {
 //                        }
                         break;
                     case R.id.navigation_about:
-                        replaceFragment(about);
+                        replaceFragment((MyFragment) about);
                         toolbar.setTitle("    关于");
                         toolbar.setLogo(R.drawable.ic_info_circle);
                         break;
                     case R.id.navigation_order:
-                        replaceFragment(orderActivity);
+                        replaceFragment((MyFragment) orderActivity);
                         toolbar.setTitle("    订单");
                         toolbar.setLogo(R.drawable.ic_order);
                         break;
@@ -140,7 +142,7 @@ public class MainActivity extends BaseActivity {
                         .setCancelable(false)
                         .show();
         } else {
-            autoUpdate.checkWithDaemon(30);
+            UpdateBuilder.create().setCheckCallback(new ToastCallback(this)).check();
         }
 
 
@@ -155,7 +157,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        autoUpdate.stopDaemon();
     }
 
     @Override
@@ -266,16 +267,21 @@ public class MainActivity extends BaseActivity {
         transaction.add(R.id.frameLyout_main,appointmentActivity).commit();
 //        transaction.add(R.id.frameLyout_main,orderActivity).hide(orderActivity).commit();
 //        transaction.add(R.id.frameLyout_main,about).hide(about).commit();
-        currentFragment = appointmentActivity;
+        currentFragment = (MyFragment) appointmentActivity;
     }
 
 
 
 
 
-    private void replaceFragment(Fragment fragment){
+    private void replaceFragment(MyFragment fragment){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 //        transaction.addToBackStack(null);
+
+        if (currentFragment == fragment){
+            return;
+        }
+        currentFragment.stopRefresh();
 
         if (!fragment.isAdded()) {
             transaction
@@ -287,8 +293,10 @@ public class MainActivity extends BaseActivity {
                     .hide(currentFragment)
                     .show(fragment)
                     .commit();
+            fragment.startRefresh();
         }
-        currentFragment = fragment;
+        currentFragment = (MyFragment) fragment;
+//        fragment.startRefresh();
     }
 
     public void changeToolbar(String id){

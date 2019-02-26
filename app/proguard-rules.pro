@@ -32,5 +32,13 @@
 -keep class **.R$* {*;}
 
 -keep class util.JsonBean.**{*;}
--keep class fixed.OrderData.**{*;}
--keep class fragment.OrderActivity.**{*;}
+
+#gson
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class sun.misc.Unsafe { *; }
+
+-keep class fragment.OrderActivity
+-keep class org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-keep class com.google.code.gson
+-keep class com.squareup.okhttp3

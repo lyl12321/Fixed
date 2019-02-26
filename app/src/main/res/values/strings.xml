@@ -6,4 +6,5 @@
     <string name="title_appointment">预约</string>
     <string name="title_about">关于</string>
     <string name="home_page">感谢您选择我的服务，请点击下方预约按钮进行预约</string>
+    <string name="say">你好，感谢你下载我们的APP，你只需在上方填入你的个人信息，点击下方的"提交"按钮，很快将会有服务人员联系你，并为你上门解决你的电脑问题！服务为免费服务，如果你看我比较可爱的话也可以给我打钱！</string>
 </resources>

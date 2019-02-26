@@ -69,12 +69,12 @@
                 android:text="服务人员:  "
                 android:textSize="@dimen/textsize" />
 
-            <TextView
-                android:id="@+id/list_item_issue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="出现问题:  "
-                android:textSize="@dimen/textsize" />
+            <!--<TextView-->
+                <!--android:id="@+id/list_item_issue"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="出现问题:  "-->
+                <!--android:textSize="@dimen/textsize" />-->
 
             <TextView
                 android:id="@+id/list_item_commitTime"
@@ -119,10 +119,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="取消订单"
-                    android:textColor="@color/appBackColor"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:backgroundTint="@color/red"
                     android:layout_marginRight="5dp"
+                    android:textColor="@color/pixelColorBule"
                     android:visibility="gone"
                     android:id="@+id/cancel_order"
                     />
@@ -131,9 +130,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="完成订单"
-                    android:textColor="@color/appBackColor"
+
                     style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:backgroundTint="@color/red"
+                    android:textColor="@color/pixelColorBule"
                     android:visibility="gone"
                     android:id="@+id/finished_order"
                     />

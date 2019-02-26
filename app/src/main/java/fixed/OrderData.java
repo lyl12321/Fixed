@@ -14,18 +14,18 @@ public class OrderData {
     private String address;
     private String time;
     private String servicePeople;
-    private String issue;
+//    private String issue;
     private String commitTime;
     private String solve;
 //
-    public OrderData(String id,String name,String phoneNumber,String address,String time,String servicePeople,String issue,String commitTime,String solve){
+    public OrderData(String id,String name,String phoneNumber,String address,String time,String servicePeople,String commitTime,String solve){
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.time = time;
         this.servicePeople = servicePeople;
-        this.issue = issue;
+//        this.issue = issue;
         this.commitTime = commitTime;
         this.solve = solve;
     }
@@ -78,13 +78,13 @@ public class OrderData {
         this.servicePeople = servicePeople;
     }
 
-    public String getIssue() {
-        return issue;
-    }
+//    public String getIssue() {
+//        return issue;
+//    }
 
-    public void setIssue(String issue) {
-        this.issue = issue;
-    }
+//    public void setIssue(String issue) {
+//        this.issue = issue;
+//    }
 
     public String getCommitTime() {
         return commitTime;

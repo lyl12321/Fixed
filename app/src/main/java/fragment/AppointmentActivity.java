@@ -20,6 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -51,7 +52,7 @@ import util.PhoneNumberMatch;
 import util.ReCommit;
 import util.StringFilter;
 
-public class AppointmentActivity extends Fragment {
+public class AppointmentActivity extends MyFragment {
 
     private EditText name;
     private EditText phone;
@@ -86,6 +87,8 @@ public class AppointmentActivity extends Fragment {
     private Thread thread;
     private int noption1, noption2, noption3 = 0;
     private boolean[] timepicktype = new boolean[]{false, false, true, true, true, false};
+    private ImageView weixing;
+    private ImageView zhifubao;
 
 
     @Nullable

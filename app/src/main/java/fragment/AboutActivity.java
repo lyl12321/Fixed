@@ -2,6 +2,7 @@ package fragment;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
@@ -23,7 +24,7 @@ import update.ClickUpdateToastCallback;
 
 import util.getVersion;
 
-public class AboutActivity extends Fragment {
+public class AboutActivity extends MyFragment {
 
     MainActivity activity;
 
@@ -36,7 +37,9 @@ public class AboutActivity extends Fragment {
         activity = (MainActivity) getActivity();
         Element versionElement = new Element();
         versionElement.setTitle("软件版本 "+getVersion.getLocalVersionName(activity));
-        versionElement.setIconDrawable(R.drawable.ic_info_circle);
+        if (Build.VERSION.SDK_INT >21){
+            versionElement.setIconDrawable(R.drawable.ic_info_circle);
+        }
         versionElement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +50,10 @@ public class AboutActivity extends Fragment {
 
         Element qqElement = new Element();
         qqElement.setTitle("QQ (刷课)");
-        qqElement.setIconDrawable(R.drawable.ic_qq);
+
+        if (android.os.Build.VERSION.SDK_INT > 21) {
+            qqElement.setIconDrawable(R.drawable.ic_qq);
+        }
         qqElement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,10 +84,10 @@ public class AboutActivity extends Fragment {
                 .addGroup("联系我")
                 .addItem(qqElement)
                 .addEmail("look.liyulong@qq.com","邮箱")
-                .addWebsite("https://www.llyyll123.xyz","博客")
-                .addTwitter("lylong_123","推特")
+                .addWebsite("https://lqwq.coding.me","博客")
+//                .addTwitter("lylong_123","推特")
 //                .addGitHub("lyl12321","github首页")
-                .addInstagram("look.liyulong","Instagram")
+//                .addInstagram("look.liyulong","Instagram")
                 .addGroup("致谢")
                 .addItem(thankPeople1)
                 .addItem(thankPeople2)

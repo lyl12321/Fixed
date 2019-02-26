@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4AD9D9</color>
-    <color name="colorPrimaryDark">#d2d2d2</color>
+    <!--<color name="colorPrimary">#4AD9D9</color>-->
+    <!--<color name="colorPrimaryDark">#d2d2d2</color>-->
+    <!--<color name="colorAccent">#C06C84</color>-->
 
-    <color name="colorAccent">#C06C84</color>
+    <color name="colorPrimary">#8AC6BF</color>
+    <color name="colorPrimaryDark">#d2d2d2</color>
+    <color name="colorAccent">#F28C81</color>
     <color name="blue">#355C7D</color>
     <color name="red">#ff0000</color>
     <color name="green">#00ff00</color>
     <color name="appBackColor">#fafafa</color>
-
+    <color name="pixelColorBule">#4285F4</color>
+    <color name="materialcolor1">#EA80FC</color>
+    <color name="materialcolor2">#84FFFF</color>
+    <color name="materialcolor3">#FFE57F</color>
 </resources>

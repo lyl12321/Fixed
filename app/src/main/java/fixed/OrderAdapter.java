@@ -43,7 +43,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         TextView address;
         TextView time;
         TextView servicePeople;
-        TextView issue;
+//        TextView issue;
         TextView commitTime;
         TextView solve;
         Button cancelButton;
@@ -58,7 +58,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             address = itemView.findViewById(R.id.list_item_address);
             time = itemView.findViewById(R.id.list_item_time);
             servicePeople = itemView.findViewById(R.id.list_item_servicePeople);
-            issue = itemView.findViewById(R.id.list_item_issue);
+//            issue = itemView.findViewById(R.id.list_item_issue);
             commitTime = itemView.findViewById(R.id.list_item_commitTime);
             solve = itemView.findViewById(R.id.list_item_solve);
             cancelButton = itemView.findViewById(R.id.cancel_order);
@@ -93,7 +93,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             viewHolder.servicePeople.setText("服务人员:   cloverkit(周广来)");
         }
 
-        viewHolder.issue.setText("出现问题:   "+order.getIssue());
         viewHolder.commitTime.setText("下单时间:   "+order.getCommitTime());
         if (order.getSolve().equals("0")){
             viewHolder.solve.setText("正在进行...");

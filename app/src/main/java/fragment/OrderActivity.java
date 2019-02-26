@@ -11,6 +11,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,9 @@ import com.google.gson.JsonParser;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 import context.MyApplication;
 import fixed.MainActivity;
@@ -42,7 +46,7 @@ import util.GetIMEI;
 import util.ReCommit;
 import util.changSolve;
 
-public class OrderActivity extends Fragment implements ItemInnerFinishedOrderListener, ItemInnerCancelOrderListener {
+public class OrderActivity extends MyFragment implements ItemInnerFinishedOrderListener, ItemInnerCancelOrderListener {
 
     private List<OrderData> orderDataList = new ArrayList<>();
 
@@ -56,6 +60,7 @@ public class OrderActivity extends Fragment implements ItemInnerFinishedOrderLis
     private RecyclerView recyclerView;
 
     private OrderAdapter adapter;
+    private ExecutorService fixedThreadPool = Executors.newFixedThreadPool(1);
 
     @Nullable
     @Override
@@ -64,12 +69,8 @@ public class OrderActivity extends Fragment implements ItemInnerFinishedOrderLis
         orderTextView = view.findViewById(R.id.order_textview);
 
         activity = (MainActivity) getActivity();
-
-
         recyclerView = view.findViewById(R.id.list_view);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-
 //        Toast.makeText(activity,GetIMEI.getIMEI(activity),Toast.LENGTH_LONG).show();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -80,10 +81,11 @@ public class OrderActivity extends Fragment implements ItemInnerFinishedOrderLis
 
 
 
+
         swipeRefreshLayout = view.findViewById(R.id.refresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         swipeRefreshLayout.setRefreshing(true);
-
+//        refreshData();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -168,8 +170,16 @@ public class OrderActivity extends Fragment implements ItemInnerFinishedOrderLis
         return view;
     }
 
+    @Override
+    public void stopRefresh() {
+//        Log.w("Order", "stopRefresh");
+    }
 
-
+    @Override
+    public void startRefresh() {
+//        Log.w("Order", "startRefresh");
+        refreshData();
+    }
 
     private void initData(){
         orderDataList.clear();
@@ -324,7 +334,8 @@ public class OrderActivity extends Fragment implements ItemInnerFinishedOrderLis
     private void refreshData(){
         swipeRefreshLayout.setRefreshing(true);
         recyclerView.setAdapter(null);
-        new Thread(new Runnable() {
+
+        fixedThreadPool.execute(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -363,6 +374,46 @@ public class OrderActivity extends Fragment implements ItemInnerFinishedOrderLis
                     }
                 });
             }
-        }).start();
+        });
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    initData();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                SharedPreferences perf = activity.getSharedPreferences("returnid", activity.MODE_PRIVATE);
+//                ReCommit.netReCommit(MyApplication.getContext(),perf.getInt("id",0));
+//
+//                activity.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//                        if (perf.getInt("id",0) == 0){
+//                            changState();
+//                        }
+//
+//
+//                        if (orderDataList.size() == 0) {
+//                            orderTextView.setVisibility(View.VISIBLE);
+//                            recyclerView.setVisibility(View.GONE);
+//                        } else {
+//                            orderTextView.setVisibility(View.GONE);
+//                            recyclerView.setVisibility(View.VISIBLE);
+//                        }
+//                        if (GetIMEI.getIMEI(activity).equals("0")){
+//                            orderTextView.setVisibility(View.VISIBLE);
+//                            recyclerView.setVisibility(View.GONE);
+//                        }
+//                        OrderAdapter adapter = new OrderAdapter(orderDataList);
+//                        adapter.setItemInnerCancelOrderListener(OrderActivity.this::onItemInnerCancelOrderClick);
+//                        adapter.setItemInnerFinishedOrderListener(OrderActivity.this::onItemInnerFinishedOrderClick);
+//                        recyclerView.setAdapter(adapter);
+//                        swipeRefreshLayout.setRefreshing(false);
+//                    }
+//                });
+//            }
+//        }).start();
     }
 }
