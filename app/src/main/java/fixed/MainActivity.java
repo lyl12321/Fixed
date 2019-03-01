@@ -174,6 +174,20 @@ public class MainActivity extends BaseActivity {
             case R.id.auto_update:
                 UpdateBuilder.create().setCheckCallback(new ClickUpdateToastCallback()).check();
                 break;
+            case R.id.about_sale:
+                new AlertDialog.Builder(this)
+                        .setTitle("关于售后")
+                        .setMessage("    我们提供半个月的免费上门维护！三个月远程协助！")
+                        .setNegativeButton("关闭",null)
+                        .show();
+                break;
+            case R.id.about_donate:
+                new AlertDialog.Builder(this)
+                        .setTitle("关于捐赠")
+                        .setMessage("    捐赠是自愿的，如果后期想退款就联系我的QQ，把转账截图给我就可以了！")
+                        .setNegativeButton("关闭",null)
+                        .show();
+                break;
         }
         return true;
     }

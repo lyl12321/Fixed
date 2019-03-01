@@ -34,7 +34,7 @@ public class IntroActivity extends AppIntro {
         sliderPage1.setTitle("你好");
         sliderPage1.setDescription("轻按右下方按钮开始");
         sliderPage1.setImageDrawable(R.drawable.touxiang);
-        sliderPage1.setBgColor(getResources().getColor(R.color.colorAccent));
+        sliderPage1.setBgColor(getResources().getColor(R.color.introcolor));
         addSlide(AppIntroFragment.newInstance(sliderPage1));
 
 

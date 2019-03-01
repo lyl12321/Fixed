@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -50,6 +52,7 @@ import util.JsonBean;
 import util.NetState;
 import util.PhoneNumberMatch;
 import util.ReCommit;
+import util.SaveImageTask;
 import util.StringFilter;
 
 public class AppointmentActivity extends MyFragment {
@@ -98,9 +101,8 @@ public class AppointmentActivity extends MyFragment {
 
         name = view.findViewById(R.id.editText_Name);
         phone = view.findViewById(R.id.editText_Phone);
-//        buildNumber = view.findViewById(R.id.niceSpinner_BuildNumber);
-//        floorNumber = view.findViewById(R.id.niceSpinner_FloorNumber);
-//        sNumber = view.findViewById(R.id.niceSpinner_SNumber);
+        weixing = view.findViewById(R.id.weixing_imageView);
+        zhifubao = view.findViewById(R.id.zhifubao_imageView);
         chooseTime = view.findViewById(R.id.button_Time);
         date = Calendar.getInstance();
         tDate = Calendar.getInstance();
@@ -149,7 +151,44 @@ public class AppointmentActivity extends MyFragment {
 
 //        progressBar.setIndeterminateDrawable(new DoubleBounce());
 
-
+        weixing.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(activity);
+                builder.setItems(new String[]{"保存图片"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        weixing.setDrawingCacheEnabled(true);
+                        Bitmap imageBitmap = weixing.getDrawingCache();
+                        if (imageBitmap != null) {
+                            new SaveImageTask("weixingdaqian").execute(imageBitmap);
+                        }
+//                        weixing.setDrawingCacheEnabled(false);
+                    }
+                });
+                builder.show();
+                return true;
+            }
+        });
+        zhifubao.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(activity);
+                builder.setItems(new String[]{"保存图片"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        zhifubao.setDrawingCacheEnabled(true);
+                        Bitmap imageBitmap = zhifubao.getDrawingCache();
+                        if (imageBitmap != null) {
+                            new SaveImageTask("zhifubaodaqian").execute(imageBitmap);
+                        }
+//                        zhifubao.setDrawingCacheEnabled(false);
+                    }
+                });
+                builder.show();
+                return true;
+            }
+        });
 
 
 
