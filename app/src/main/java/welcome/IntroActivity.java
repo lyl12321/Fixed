@@ -19,8 +19,8 @@ public class IntroActivity extends AppIntro {
     String[] string = new String[]{
 //            Manifest.permission.SEND_SMS,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_PHONE_STATE,
-            Manifest.permission.ACCESS_FINE_LOCATION
+            Manifest.permission.READ_PHONE_STATE
+//            Manifest.permission.ACCESS_FINE_LOCATION
     };
 
     @Override
@@ -43,7 +43,7 @@ public class IntroActivity extends AppIntro {
         sliderPage2.setTitle("权限");
         sliderPage2.setDescription("我需要一些权限才能正常工作，在您进行下一步前，我会向您申请一些必要的权限！");
         sliderPage2.setImageDrawable(R.drawable.ic_service);
-        sliderPage2.setBgColor(getResources().getColor(R.color.blue));
+        sliderPage2.setBgColor(getResources().getColor(R.color.materialcolor1));
         addSlide(AppIntroFragment.newInstance(sliderPage2));
 
         SliderPage sliderPage3 = new SliderPage();

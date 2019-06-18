@@ -265,114 +265,114 @@
             </android.support.constraint.ConstraintLayout>
 
 
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone">
+            <!--<android.support.constraint.ConstraintLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:visibility="gone">-->
 
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/layout_marginstart"
-                    android:layout_marginTop="@dimen/layout_margintop"
-                    android:layout_marginEnd="@dimen/layout_marginend"
-                    android:layout_marginBottom="@dimen/layout_marginBottom"
-                    app:cardCornerRadius="@dimen/cardcornerradius"
-                    app:cardElevation="@dimen/cardelevation"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                <!--<android.support.v7.widget.CardView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginStart="@dimen/layout_marginstart"-->
+                    <!--android:layout_marginTop="@dimen/layout_margintop"-->
+                    <!--android:layout_marginEnd="@dimen/layout_marginend"-->
+                    <!--android:layout_marginBottom="@dimen/layout_marginBottom"-->
+                    <!--app:cardCornerRadius="@dimen/cardcornerradius"-->
+                    <!--app:cardElevation="@dimen/cardelevation"-->
+                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--app:layout_constraintStart_toStartOf="parent"-->
+                    <!--app:layout_constraintTop_toTopOf="parent">-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:orientation="vertical">-->
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            android:orientation="vertical"
-                            android:padding="12dp">
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_weight="5"-->
+                            <!--android:orientation="vertical"-->
+                            <!--android:padding="12dp">-->
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:orientation="vertical">-->
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="选择你遇到的问题"
-                                    android:textColor="#F67280"
-                                    android:textSize="26dp" />
-                            </LinearLayout>
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="选择你遇到的问题"-->
+                                    <!--android:textColor="#F67280"-->
+                                    <!--android:textSize="26dp" />-->
+                            <!--</LinearLayout>-->
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="20dp">
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:paddingTop="20dp">-->
 
-                                <CheckBox
-                                    android:id="@+id/checkBox1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/checkboxpadding"
-                                    android:text="蓝屏"
-                                    android:textSize="18dp" />
+                                <!--<CheckBox-->
+                                    <!--android:id="@+id/checkBox1"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:padding="@dimen/checkboxpadding"-->
+                                    <!--android:text="蓝屏"-->
+                                    <!--android:textSize="18dp" />-->
 
-                                <CheckBox
-                                    android:id="@+id/checkBox2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/checkboxpadding"
-                                    android:text="运行卡顿"
-                                    android:textSize="18dp" />
+                                <!--<CheckBox-->
+                                    <!--android:id="@+id/checkBox2"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:padding="@dimen/checkboxpadding"-->
+                                    <!--android:text="运行卡顿"-->
+                                    <!--android:textSize="18dp" />-->
 
-                                <CheckBox
-                                    android:id="@+id/checkBox3"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/checkboxpadding"
-                                    android:text="软件报错"
-                                    android:textSize="18dp" />
-                            </LinearLayout>
+                                <!--<CheckBox-->
+                                    <!--android:id="@+id/checkBox3"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:padding="@dimen/checkboxpadding"-->
+                                    <!--android:text="软件报错"-->
+                                    <!--android:textSize="18dp" />-->
+                            <!--</LinearLayout>-->
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content">-->
 
-                                <CheckBox
-                                    android:id="@+id/checkBox4"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/checkboxpadding"
-                                    android:text="开不了机"
-                                    android:textSize="18dp" />
+                                <!--<CheckBox-->
+                                    <!--android:id="@+id/checkBox4"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:padding="@dimen/checkboxpadding"-->
+                                    <!--android:text="开不了机"-->
+                                    <!--android:textSize="18dp" />-->
 
-                                <CheckBox
-                                    android:id="@+id/checkBox5"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/checkboxpadding"
-                                    android:text="其它迷之问题"
-                                    android:textSize="18dp" />
-                            </LinearLayout>
-
-
-                        </LinearLayout>
+                                <!--<CheckBox-->
+                                    <!--android:id="@+id/checkBox5"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:padding="@dimen/checkboxpadding"-->
+                                    <!--android:text="其它迷之问题"-->
+                                    <!--android:textSize="18dp" />-->
+                            <!--</LinearLayout>-->
 
 
-                    </LinearLayout>
+                        <!--</LinearLayout>-->
 
 
-                </android.support.v7.widget.CardView>
+                    <!--</LinearLayout>-->
+
+
+                <!--</android.support.v7.widget.CardView>-->
 
 
 
-            </android.support.constraint.ConstraintLayout>
+            <!--</android.support.constraint.ConstraintLayout>-->
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"

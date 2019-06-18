@@ -13,8 +13,13 @@ public class GetIMEI {
 
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-            imei = telephonyManager.getDeviceId();
+        try{
+
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+                imei = telephonyManager.getDeviceId();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
 
         return imei;

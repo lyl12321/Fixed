@@ -71,18 +71,18 @@ public class AppointmentActivity extends MyFragment {
 //    private int aDay;
 //    private int aHour;
 //    private int aMinute;
-    private CheckBox[] checkBoxes;
+//    private CheckBox[] checkBoxes;
     private Button choosePosition;
 
     private LoadingButton buttonCommit;
     MainActivity activity;
-    ProgressBar progressBar;
+//    ProgressBar progressBar;
     private String bResult;
-    private String phoneNumber;
+//    private String phoneNumber;
     private Button choosePeople;
     private String[] servicePeople;
-    private int checkedItem = 0;
-    private boolean netState;
+//    private int checkedItem = 0;
+//    private boolean netState;
     private int servicePeopleNumber;
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
@@ -113,12 +113,12 @@ public class AppointmentActivity extends MyFragment {
 
         tDate2 = Calendar.getInstance();
 //        tDate.set(2000, 4, 29, 0, 0);
-        checkBoxes = new CheckBox[5];
-        checkBoxes[0] = view.findViewById(R.id.checkBox1);
-        checkBoxes[1] = view.findViewById(R.id.checkBox2);
-        checkBoxes[2] = view.findViewById(R.id.checkBox3);
-        checkBoxes[3] = view.findViewById(R.id.checkBox4);
-        checkBoxes[4] = view.findViewById(R.id.checkBox5);
+//        checkBoxes = new CheckBox[5];
+//        checkBoxes[0] = view.findViewById(R.id.checkBox1);
+//        checkBoxes[1] = view.findViewById(R.id.checkBox2);
+//        checkBoxes[2] = view.findViewById(R.id.checkBox3);
+//        checkBoxes[3] = view.findViewById(R.id.checkBox4);
+//        checkBoxes[4] = view.findViewById(R.id.checkBox5);
         buttonCommit = view.findViewById(R.id.button_Commit);
         activity = (MainActivity) getActivity();
         choosePosition = view.findViewById(R.id.button_position);
@@ -469,13 +469,13 @@ public class AppointmentActivity extends MyFragment {
 
 
     private String commit(){
-        String question = new String();
+//        String question = new String();
 
-        for(int i = 0; i <=4; i++){
-            if (checkBoxes[i].isChecked()){
-                question += checkBoxes[i].getText()+",";
-            }
-        }
+//        for(int i = 0; i <=4; i++){
+//            if (checkBoxes[i].isChecked()){
+//                question += checkBoxes[i].getText()+",";
+//            }
+//        }
 
         return "姓名:"+name.getText()+'\n'+
                 "电话:"+phone.getText()+'\n'+

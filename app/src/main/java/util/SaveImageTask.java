@@ -29,7 +29,7 @@ public class SaveImageTask extends AsyncTask<Bitmap, Void, String> {
         try {
             String sdcard = Environment.getExternalStorageDirectory().toString();
 
-            File file = new File(sdcard + "/");
+            File file = new File(sdcard + "/jidianxiu/");
             if (!file.exists()) {
                 file.mkdirs();
             }
@@ -41,7 +41,7 @@ public class SaveImageTask extends AsyncTask<Bitmap, Void, String> {
             image.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
             outStream.flush();
             outStream.close();
-            result = "打钱码已经成功保存到你的SD卡根目录下！";
+            result = "打钱码已经成功保存到你的SD卡！";
         } catch (Exception e) {
             e.printStackTrace();
         }

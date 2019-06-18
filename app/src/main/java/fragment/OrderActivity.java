@@ -105,7 +105,7 @@ public class OrderActivity extends MyFragment implements ItemInnerFinishedOrderL
                             orderTextView.setVisibility(View.GONE);
                             recyclerView.setVisibility(View.VISIBLE);
                         }
-                        if (GetIMEI.getIMEI(activity).equals("0")){
+                        if (GetIMEI.getIMEI(activity) == null || GetIMEI.getIMEI(activity).equals("0")){
                             orderTextView.setVisibility(View.VISIBLE);
                             recyclerView.setVisibility(View.GONE);
                         }
@@ -150,7 +150,7 @@ public class OrderActivity extends MyFragment implements ItemInnerFinishedOrderL
                                     orderTextView.setVisibility(View.GONE);
                                     recyclerView.setVisibility(View.VISIBLE);
                                 }
-                                if (GetIMEI.getIMEI(activity).equals("0")){
+                                if (GetIMEI.getIMEI(activity) == null || GetIMEI.getIMEI(activity).equals("0")){
                                     orderTextView.setVisibility(View.VISIBLE);
                                     recyclerView.setVisibility(View.GONE);
                                 }
@@ -362,7 +362,7 @@ public class OrderActivity extends MyFragment implements ItemInnerFinishedOrderL
                             orderTextView.setVisibility(View.GONE);
                             recyclerView.setVisibility(View.VISIBLE);
                         }
-                        if (GetIMEI.getIMEI(activity).equals("0")){
+                        if (GetIMEI.getIMEI(activity) == null || GetIMEI.getIMEI(activity).equals("0")){
                             orderTextView.setVisibility(View.VISIBLE);
                             recyclerView.setVisibility(View.GONE);
                         }

@@ -5,9 +5,6 @@ import inf.ItemInnerFinishedOrderListener;
 
 public class OrderData {
 
-
-
-
     private String id;
     private String name;
     private String phoneNumber;

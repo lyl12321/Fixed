@@ -72,6 +72,7 @@ public class MainActivity extends BaseActivity {
         if (android.os.Build.VERSION.SDK_INT > 21) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
+
         }
         setContentView(R.layout.activity_main);
 
@@ -125,10 +126,9 @@ public class MainActivity extends BaseActivity {
 
 
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED
-//                || ContextCompat.checkSelfPermission(this,Manifest.permission.READ_PHONE_STATE)
-//                    != PackageManager.PERMISSION_GRANTED
+        if (ContextCompat.checkSelfPermission(
+                this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED
                     ) {
                 new android.support.v7.app.AlertDialog.Builder(this)
                         .setMessage("程序需要一些必要的权限才能正常工作，请同意")
@@ -138,7 +138,6 @@ public class MainActivity extends BaseActivity {
                                 requestPermission();
                             }
                         })
-
                         .setCancelable(false)
                         .show();
         } else {
